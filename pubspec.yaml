@@ -28,6 +28,9 @@ dependencies:
   auto_size_text: 3.0.0
   cached_network_image: 3.2.1
   flutter_animate: 1.0.0
+  flutter_barcode_scanner: 
+    git:
+      url: https://github.com/FlutterFlow/flutter_barcode_scanner
   flutter_cache_manager: 3.3.0
   flutter_spinkit: 5.1.0
   font_awesome_flutter: 10.1.0

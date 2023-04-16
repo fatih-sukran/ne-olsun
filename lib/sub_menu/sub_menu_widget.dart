@@ -26,6 +26,8 @@ class _SubMenuWidgetState extends State<SubMenuWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SubMenuModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

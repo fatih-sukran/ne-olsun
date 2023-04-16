@@ -26,6 +26,8 @@ class _CartPageWidgetState extends State<CartPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => CartPageModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
