@@ -45,6 +45,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'cart_page',
           path: '/cartPage',
           builder: (context, params) => CartPageWidget(),
+        ),
+        FFRoute(
+          name: 'menu',
+          path: '/menu',
+          builder: (context, params) => MenuWidget(),
+        ),
+        FFRoute(
+          name: 'SubMenu',
+          path: '/subMenu',
+          builder: (context, params) => SubMenuWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       urlPathStrategy: UrlPathStrategy.path,
