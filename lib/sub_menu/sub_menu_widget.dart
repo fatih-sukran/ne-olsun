@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'sub_menu_model.dart';
@@ -281,7 +282,7 @@ class _SubMenuWidgetState extends State<SubMenuWidget> {
                                               Icons.add_circle_sharp,
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primary,
+                                                      .alternate,
                                               size: 40.0,
                                             ),
                                             onPressed: () {
@@ -471,7 +472,7 @@ class _SubMenuWidgetState extends State<SubMenuWidget> {
                                               Icons.add_circle_sharp,
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primary,
+                                                      .alternate,
                                               size: 40.0,
                                             ),
                                             onPressed: () {
@@ -661,7 +662,7 @@ class _SubMenuWidgetState extends State<SubMenuWidget> {
                                               Icons.add_circle_sharp,
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primary,
+                                                      .alternate,
                                               size: 40.0,
                                             ),
                                             onPressed: () {
@@ -851,7 +852,7 @@ class _SubMenuWidgetState extends State<SubMenuWidget> {
                                               Icons.add_circle_sharp,
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primary,
+                                                      .alternate,
                                               size: 40.0,
                                             ),
                                             onPressed: () {
