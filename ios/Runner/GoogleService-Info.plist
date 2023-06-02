@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>438285478643-jld8cka9qr6651clfnhq3afmjr8ej4bl.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.438285478643-jld8cka9qr6651clfnhq3afmjr8ej4bl</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>438285478643-l5egso7ubsnja00ssfsl3u1ldo02o4ql.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCbpB6pUZ9s5j7p6eqriLj8Avnoly5Rf6A</string>
+	<key>GCM_SENDER_ID</key>
+	<string>438285478643</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.mycompany.neolsun</string>
+	<key>PROJECT_ID</key>
+	<string>ne-olsun</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ne-olsun.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:438285478643:ios:9d4f621e295317a1f0e586</string>
+</dict>
+</plist>

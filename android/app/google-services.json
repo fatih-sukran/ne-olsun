@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "438285478643",
+    "project_id": "ne-olsun",
+    "storage_bucket": "ne-olsun.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:438285478643:android:bf64423a1717f804f0e586",
+        "android_client_info": {
+          "package_name": "com.mycompany.neolsun"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "438285478643-l5egso7ubsnja00ssfsl3u1ldo02o4ql.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.neolsun",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "438285478643-5hsgd2td34lkpovi49uoeil7br1f1nla.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5HWL8CUMeCQ3AsZr_GSQ9D0Rj7l-BQBo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "438285478643-5hsgd2td34lkpovi49uoeil7br1f1nla.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "438285478643-jld8cka9qr6651clfnhq3afmjr8ej4bl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.neolsun"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
