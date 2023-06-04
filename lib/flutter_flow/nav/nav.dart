@@ -5,6 +5,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
 import '../flutter_flow_theme.dart';
+import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 
 import '../../index.dart';
 import '../../main.dart';
@@ -18,6 +20,11 @@ export 'serialization_util.dart';
 const kTransitionInfoKey = '__transition_info__';
 
 class AppStateNotifier extends ChangeNotifier {
+  AppStateNotifier._();
+
+  static AppStateNotifier? _instance;
+  static AppStateNotifier get instance => _instance ??= AppStateNotifier._();
+
   bool showSplashImage = true;
 
   void stopShowingSplashImage() {
@@ -30,17 +37,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, _) => HomePageWidget(),
+      errorBuilder: (context, state) => ScanQrWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => HomePageWidget(),
+          builder: (context, _) => ScanQrWidget(),
         ),
         FFRoute(
-          name: 'HomePage',
-          path: '/homePage',
-          builder: (context, params) => HomePageWidget(),
+          name: 'ScanQr',
+          path: '/scan_qr',
+          builder: (context, params) => ScanQrWidget(),
         ),
         FFRoute(
           name: 'cart_page',
@@ -48,17 +55,36 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => CartPageWidget(),
         ),
         FFRoute(
-          name: 'menu',
-          path: '/menu',
-          builder: (context, params) => MenuWidget(),
+          name: 'categories',
+          path: '/menu_page',
+          builder: (context, params) => CategoriesWidget(),
         ),
         FFRoute(
-          name: 'SubMenu',
-          path: '/subMenu',
-          builder: (context, params) => SubMenuWidget(),
+          name: 'category_detail',
+          path: '/categoryDetail',
+          asyncParams: {
+            'categoryId': getDoc(['categories'], CategoriesRecord.fromSnapshot),
+          },
+          builder: (context, params) => CategoryDetailWidget(
+            categoryId: params.getParam('categoryId', ParamType.Document),
+          ),
+        ),
+        FFRoute(
+          name: 'payment_page',
+          path: '/paymentPage',
+          builder: (context, params) => PaymentPageWidget(),
+        ),
+        FFRoute(
+          name: 'payment_successful',
+          path: '/paymentSuccessful',
+          builder: (context, params) => PaymentSuccessfulWidget(),
+        ),
+        FFRoute(
+          name: 'orders',
+          path: '/orders',
+          builder: (context, params) => OrdersWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
-      urlPathStrategy: UrlPathStrategy.path,
     );
 
 extension NavParamExtensions on Map<String, String?> {
@@ -73,10 +99,10 @@ extension NavigationExtensions on BuildContext {
   void safePop() {
     // If there is only one route on the stack, navigate to the initial
     // page instead of popping.
-    if (GoRouter.of(this).routerDelegate.matches.length <= 1) {
-      go('/');
-    } else {
+    if (canPop()) {
       pop();
+    } else {
+      go('/');
     }
   }
 }
@@ -85,8 +111,8 @@ extension _GoRouterStateExtensions on GoRouterState {
   Map<String, dynamic> get extraMap =>
       extra != null ? extra as Map<String, dynamic> : {};
   Map<String, dynamic> get allParams => <String, dynamic>{}
-    ..addAll(params)
-    ..addAll(queryParams)
+    ..addAll(pathParameters)
+    ..addAll(queryParameters)
     ..addAll(extraMap);
   TransitionInfo get transitionInfo => extraMap.containsKey(kTransitionInfoKey)
       ? extraMap[kTransitionInfoKey] as TransitionInfo
@@ -128,6 +154,7 @@ class FFParameters {
     String paramName,
     ParamType type, [
     bool isList = false,
+    List<String>? collectionNamePath,
   ]) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -141,11 +168,8 @@ class FFParameters {
       return param;
     }
     // Return serialized value.
-    return deserializeParam<T>(
-      param,
-      type,
-      isList,
-    );
+    return deserializeParam<T>(param, type, isList,
+        collectionNamePath: collectionNamePath);
   }
 }
 
