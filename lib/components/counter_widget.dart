@@ -82,11 +82,8 @@ class _CounterWidgetState extends State<CounterWidget> {
                 _model.num = functions.getProductCount(
                     widget.productDocumentId!, FFAppState().products.toList());
               });
-              _model.updatePage(() {
-                FFAppState().updateProductsAtIndex(
-                  0,
-                  (e) => e,
-                );
+              FFAppState().update(() {
+                FFAppState().products = FFAppState().products.toList();
               });
             },
           ),
@@ -116,6 +113,9 @@ class _CounterWidgetState extends State<CounterWidget> {
               setState(() {
                 _model.num = functions.getProductCount(
                     widget.productDocumentId!, FFAppState().products.toList());
+              });
+              FFAppState().update(() {
+                FFAppState().products = FFAppState().products.toList();
               });
             },
           ),

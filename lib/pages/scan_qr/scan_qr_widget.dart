@@ -110,18 +110,11 @@ class _ScanQrWidgetState extends State<ScanQrWidget> {
                         : null;
                     return FFButtonWidget(
                       onPressed: () async {
-                        context.pushNamed(
-                          'categories',
-                          queryParameters: {
-                            'cafe': serializeParam(
-                              buttonCafesRecord,
-                              ParamType.Document,
-                            ),
-                          }.withoutNulls,
-                          extra: <String, dynamic>{
-                            'cafe': buttonCafesRecord,
-                          },
-                        );
+                        setState(() {
+                          FFAppState().cafe = buttonCafesRecord!.reference;
+                        });
+
+                        context.goNamed('categories');
                       },
                       text: 'Scan QR Code',
                       options: FFButtonOptions(

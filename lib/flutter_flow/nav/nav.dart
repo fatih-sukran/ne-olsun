@@ -57,12 +57,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'categories',
           path: '/menu_page',
-          asyncParams: {
-            'cafe': getDoc(['cafes'], CafesRecord.fromSnapshot),
-          },
-          builder: (context, params) => CategoriesWidget(
-            cafe: params.getParam('cafe', ParamType.Document),
-          ),
+          builder: (context, params) => CategoriesWidget(),
         ),
         FFRoute(
           name: 'category_detail',
@@ -73,6 +68,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => CategoryDetailWidget(
             categoryId: params.getParam('categoryId', ParamType.Document),
           ),
+        ),
+        FFRoute(
+          name: 'payment_page',
+          path: '/paymentPage',
+          builder: (context, params) => PaymentPageWidget(),
+        ),
+        FFRoute(
+          name: 'payment_successful',
+          path: '/paymentSuccessful',
+          builder: (context, params) => PaymentSuccessfulWidget(),
+        ),
+        FFRoute(
+          name: 'orders',
+          path: '/orders',
+          builder: (context, params) => OrdersWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
