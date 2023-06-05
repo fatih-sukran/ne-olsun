@@ -13,13 +13,26 @@ import 'dart:developer';
 
 Future makeProductsToOrders() async {
   // Add your function code here!
-  var products = FFAppState().products;
-  var orders = FFAppState().orders;
 
-  if (products.isEmpty) {
+  if (FFAppState().products.isEmpty) {
     log("products is empty");
     return;
   }
 
-  for (int i = 0; i < products.length; i++) {}
+  for (int i = 0; i < FFAppState().products.length; i++) {
+    var flag = true;
+    for (int j = 0; j < FFAppState().orders.length; j++) {
+      if (FFAppState().orders[j].productDocumentId?.id ==
+          FFAppState().products[i].productDocumentId?.id) {
+        flag = false;
+        FFAppState().orders[j].count += FFAppState().products[i].count;
+      }
+    }
+
+    if (flag) {
+      FFAppState().orders.add(FFAppState().products[i]);
+    }
+  }
+
+  FFAppState().products.clear();
 }

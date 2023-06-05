@@ -10,6 +10,7 @@ import 'place.dart';
 import '/backend/backend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '/backend/schema/structs/index.dart';
+import '/auth/firebase_auth/auth_util.dart';
 
 int getProductCount(
   ProductsRecord productId,
