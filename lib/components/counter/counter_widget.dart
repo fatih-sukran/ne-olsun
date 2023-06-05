@@ -1,9 +1,6 @@
-import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/custom_code/actions/index.dart' as actions;
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -13,12 +10,7 @@ import 'counter_model.dart';
 export 'counter_model.dart';
 
 class CounterWidget extends StatefulWidget {
-  const CounterWidget({
-    Key? key,
-    required this.productDocumentId,
-  }) : super(key: key);
-
-  final ProductsRecord? productDocumentId;
+  const CounterWidget({Key? key}) : super(key: key);
 
   @override
   _CounterWidgetState createState() => _CounterWidgetState();
@@ -73,25 +65,12 @@ class _CounterWidgetState extends State<CounterWidget> {
               color: FlutterFlowTheme.of(context).primaryText,
               size: 15.0,
             ),
-            onPressed: () async {
-              await actions.incremement(
-                widget.productDocumentId!,
-                1,
-              );
-              setState(() {
-                _model.num = functions.getProductCount(
-                    widget.productDocumentId!, FFAppState().products.toList());
-              });
-              FFAppState().update(() {
-                FFAppState().products = FFAppState().products.toList();
-              });
+            onPressed: () {
+              print('IconButton pressed ...');
             },
           ),
           Text(
-            functions
-                .getProductCount(
-                    widget.productDocumentId!, FFAppState().products.toList())
-                .toString(),
+            '0',
             style: FlutterFlowTheme.of(context).titleLarge,
           ),
           FlutterFlowIconButton(
@@ -105,18 +84,8 @@ class _CounterWidgetState extends State<CounterWidget> {
               color: FlutterFlowTheme.of(context).primaryText,
               size: 15.0,
             ),
-            onPressed: () async {
-              await actions.incremement(
-                widget.productDocumentId!,
-                -1,
-              );
-              setState(() {
-                _model.num = functions.getProductCount(
-                    widget.productDocumentId!, FFAppState().products.toList());
-              });
-              FFAppState().update(() {
-                FFAppState().products = FFAppState().products.toList();
-              });
+            onPressed: () {
+              print('IconButton pressed ...');
             },
           ),
         ],

@@ -86,7 +86,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               : SplashScreenWidget(),
         ),
         FFRoute(
-          name: 'ScanQr',
+          name: 'scan_qr',
           path: '/scan_qr',
           builder: (context, params) => ScanQrWidget(),
         ),
@@ -102,13 +102,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         ),
         FFRoute(
           name: 'category_detail',
-          path: '/categoryDetail',
-          asyncParams: {
-            'categoryId': getDoc(['categories'], CategoriesRecord.fromSnapshot),
-          },
-          builder: (context, params) => CategoryDetailWidget(
-            categoryId: params.getParam('categoryId', ParamType.Document),
-          ),
+          path: '/category_detail',
+          builder: (context, params) => CategoryDetailWidget(),
         ),
         FFRoute(
           name: 'payment_page',
@@ -138,7 +133,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         ),
         FFRoute(
           name: 'splash_screen',
-          path: '/splashScreen',
+          path: '/splash_screen',
           builder: (context, params) => SplashScreenWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
@@ -306,7 +301,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.location);
-            return '/splashScreen';
+            return '/splash_screen';
           }
           return null;
         },

@@ -1,6 +1,7 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -76,14 +77,17 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                     Expanded(
                       child: Builder(
                         builder: (context) {
-                          final orders = FFAppState().orders.toList();
+                          final aaa = List.generate(
+                              random_data.randomInteger(0, 0),
+                              (index) =>
+                                  random_data.randomName(true, false)).toList();
                           return ListView.builder(
                             padding: EdgeInsets.zero,
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
-                            itemCount: orders.length,
-                            itemBuilder: (context, ordersIndex) {
-                              final ordersItem = orders[ordersIndex];
+                            itemCount: aaa.length,
+                            itemBuilder: (context, aaaIndex) {
+                              final aaaItem = aaa[aaaIndex];
                               return Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 21.0),
@@ -151,7 +155,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                                                       .fromSTEB(
                                                           0.0, 4.0, 0.0, 0.0),
                                                   child: Text(
-                                                    ordersItem.name,
+                                                    'Estimated Pickup TIme',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .labelMedium,
@@ -202,7 +206,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                                                                   0.0,
                                                                   0.0),
                                                       child: Text(
-                                                        '${FFAppState().currency}${ordersItem.price.toString()}',
+                                                        '${FFAppState().currency}',
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -217,7 +221,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                                                     .fromSTEB(
                                                         0.0, 4.0, 0.0, 8.0),
                                                 child: Text(
-                                                  '(${ordersItem.count.toString()} piece${ordersItem.count > 1 ? 's' : ''})',
+                                                  '( piece)',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .labelMedium,

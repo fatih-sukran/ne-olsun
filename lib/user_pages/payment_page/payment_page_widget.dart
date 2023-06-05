@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_credit_card_form.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -193,11 +192,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget>
                                           ),
                                         ),
                                         Text(
-                                          functions
-                                              .getTotalPrice(FFAppState()
-                                                  .products
-                                                  .toList())
-                                              .toString(),
+                                          'Hello World',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium,
                                         ),

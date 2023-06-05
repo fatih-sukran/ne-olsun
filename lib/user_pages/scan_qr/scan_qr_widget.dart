@@ -1,8 +1,9 @@
-import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +28,11 @@ class _ScanQrWidgetState extends State<ScanQrWidget> {
     super.initState();
     _model = createModel(context, () => ScanQrModel());
 
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await actions.newCustomAction();
+    });
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -43,7 +49,7 @@ class _ScanQrWidgetState extends State<ScanQrWidget> {
     context.watch<FFAppState>();
 
     return Title(
-        title: 'ScanQr',
+        title: 'scan_qr',
         color: FlutterFlowTheme.of(context).primary,
         child: GestureDetector(
           onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
@@ -88,129 +94,59 @@ class _ScanQrWidgetState extends State<ScanQrWidget> {
                   Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(13.0, 13.0, 13.0, 13.0),
-                    child: StreamBuilder<List<CafesRecord>>(
-                      stream: queryCafesRecord(
-                        singleRecord: true,
-                      ),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: SpinKitFadingFour(
-                                color: FlutterFlowTheme.of(context).primary,
-                                size: 50.0,
-                              ),
-                            ),
-                          );
-                        }
-                        List<CafesRecord> buttonCafesRecordList =
-                            snapshot.data!;
-                        // Return an empty Container when the item does not exist.
-                        if (snapshot.data!.isEmpty) {
-                          return Container();
-                        }
-                        final buttonCafesRecord =
-                            buttonCafesRecordList.isNotEmpty
-                                ? buttonCafesRecordList.first
-                                : null;
-                        return FFButtonWidget(
-                          onPressed: () async {
-                            setState(() {
-                              FFAppState().cafe = buttonCafesRecord!.reference;
-                            });
-
-                            context.goNamed('categories');
-                          },
-                          text: 'Scan QR Code',
-                          options: FFButtonOptions(
-                            height: 50.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context).primary,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
+                    child: FFButtonWidget(
+                      onPressed: () {
+                        print('Button pressed ...');
+                      },
+                      text: 'Scan QR Code',
+                      options: FFButtonOptions(
+                        height: 50.0,
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        iconPadding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: FlutterFlowTheme.of(context).primary,
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
                                   fontFamily: 'Poppins',
                                   color: Colors.white,
                                 ),
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          showLoadingIndicator: false,
-                        );
-                      },
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      showLoadingIndicator: false,
                     ),
                   ),
                   Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(13.0, 13.0, 13.0, 13.0),
-                    child: StreamBuilder<List<CafesRecord>>(
-                      stream: queryCafesRecord(
-                        singleRecord: true,
-                      ),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: SpinKitFadingFour(
-                                color: FlutterFlowTheme.of(context).primary,
-                                size: 50.0,
-                              ),
-                            ),
-                          );
-                        }
-                        List<CafesRecord> buttonCafesRecordList =
-                            snapshot.data!;
-                        // Return an empty Container when the item does not exist.
-                        if (snapshot.data!.isEmpty) {
-                          return Container();
-                        }
-                        final buttonCafesRecord =
-                            buttonCafesRecordList.isNotEmpty
-                                ? buttonCafesRecordList.first
-                                : null;
-                        return FFButtonWidget(
-                          onPressed: () async {
-                            setState(() {
-                              FFAppState().cafe = buttonCafesRecord!.reference;
-                            });
-
-                            context.pushNamed('login_page');
-                          },
-                          text: 'Go to Login',
-                          options: FFButtonOptions(
-                            height: 50.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context).primary,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
+                    child: FFButtonWidget(
+                      onPressed: () {
+                        print('Button pressed ...');
+                      },
+                      text: 'Go to Login',
+                      options: FFButtonOptions(
+                        height: 50.0,
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        iconPadding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: FlutterFlowTheme.of(context).primary,
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
                                   fontFamily: 'Poppins',
                                   color: Colors.white,
                                 ),
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          showLoadingIndicator: false,
-                        );
-                      },
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      showLoadingIndicator: false,
                     ),
                   ),
                 ],

@@ -60,16 +60,8 @@ class _LogoutButtonWidgetState extends State<LogoutButtonWidget> {
           color: FlutterFlowTheme.of(context).secondary,
           size: 24.0,
         ),
-        onPressed: () async {
-          setState(() {
-            FFAppState().deleteProducts();
-            FFAppState().products = [];
-
-            FFAppState().deleteOrders();
-            FFAppState().orders = [];
-          });
-
-          context.goNamed('ScanQr');
+        onPressed: () {
+          print('IconButton pressed ...');
         },
       ),
     );

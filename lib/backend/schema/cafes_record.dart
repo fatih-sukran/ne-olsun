@@ -19,14 +19,8 @@ class CafesRecord extends FirestoreRecord {
   String get name => _name ?? '';
   bool hasName() => _name != null;
 
-  // "categories" field.
-  List<DocumentReference>? _categories;
-  List<DocumentReference> get categories => _categories ?? const [];
-  bool hasCategories() => _categories != null;
-
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
-    _categories = getDataList(snapshotData['categories']);
   }
 
   static CollectionReference get collection =>

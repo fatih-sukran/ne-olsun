@@ -7,33 +7,26 @@ import '/backend/schema/util/schema_util.dart';
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
-class ProductsStruct extends FFFirebaseStruct {
-  ProductsStruct({
-    int? count,
-    DocumentReference? productDocumentId,
+class ProductStruct extends FFFirebaseStruct {
+  ProductStruct({
+    DocumentReference? productId,
     String? name,
     String? description,
+    String? imageUrl,
     double? price,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
-  })  : _count = count,
-        _productDocumentId = productDocumentId,
+  })  : _productId = productId,
         _name = name,
         _description = description,
+        _imageUrl = imageUrl,
         _price = price,
         super(firestoreUtilData);
 
-  // "count" field.
-  int? _count;
-  int get count => _count ?? 0;
-  set count(int? val) => _count = val;
-  void incrementCount(int amount) => _count = count + amount;
-  bool hasCount() => _count != null;
-
-  // "productDocumentId" field.
-  DocumentReference? _productDocumentId;
-  DocumentReference? get productDocumentId => _productDocumentId;
-  set productDocumentId(DocumentReference? val) => _productDocumentId = val;
-  bool hasProductDocumentId() => _productDocumentId != null;
+  // "product_id" field.
+  DocumentReference? _productId;
+  DocumentReference? get productId => _productId;
+  set productId(DocumentReference? val) => _productId = val;
+  bool hasProductId() => _productId != null;
 
   // "name" field.
   String? _name;
@@ -47,6 +40,12 @@ class ProductsStruct extends FFFirebaseStruct {
   set description(String? val) => _description = val;
   bool hasDescription() => _description != null;
 
+  // "image_url" field.
+  String? _imageUrl;
+  String get imageUrl => _imageUrl ?? '';
+  set imageUrl(String? val) => _imageUrl = val;
+  bool hasImageUrl() => _imageUrl != null;
+
   // "price" field.
   double? _price;
   double get price => _price ?? 0.0;
@@ -54,33 +53,29 @@ class ProductsStruct extends FFFirebaseStruct {
   void incrementPrice(double amount) => _price = price + amount;
   bool hasPrice() => _price != null;
 
-  static ProductsStruct fromMap(Map<String, dynamic> data) => ProductsStruct(
-        count: data['count'] as int?,
-        productDocumentId: data['productDocumentId'] as DocumentReference?,
+  static ProductStruct fromMap(Map<String, dynamic> data) => ProductStruct(
+        productId: data['product_id'] as DocumentReference?,
         name: data['name'] as String?,
         description: data['description'] as String?,
+        imageUrl: data['image_url'] as String?,
         price: castToType<double>(data['price']),
       );
 
-  static ProductsStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? ProductsStruct.fromMap(data) : null;
+  static ProductStruct? maybeFromMap(dynamic data) =>
+      data is Map<String, dynamic> ? ProductStruct.fromMap(data) : null;
 
   Map<String, dynamic> toMap() => {
-        'count': _count,
-        'productDocumentId': _productDocumentId,
+        'product_id': _productId,
         'name': _name,
         'description': _description,
+        'image_url': _imageUrl,
         'price': _price,
       }.withoutNulls;
 
   @override
   Map<String, dynamic> toSerializableMap() => {
-        'count': serializeParam(
-          _count,
-          ParamType.int,
-        ),
-        'productDocumentId': serializeParam(
-          _productDocumentId,
+        'product_id': serializeParam(
+          _productId,
           ParamType.DocumentReference,
         ),
         'name': serializeParam(
@@ -91,24 +86,23 @@ class ProductsStruct extends FFFirebaseStruct {
           _description,
           ParamType.String,
         ),
+        'image_url': serializeParam(
+          _imageUrl,
+          ParamType.String,
+        ),
         'price': serializeParam(
           _price,
           ParamType.double,
         ),
       }.withoutNulls;
 
-  static ProductsStruct fromSerializableMap(Map<String, dynamic> data) =>
-      ProductsStruct(
-        count: deserializeParam(
-          data['count'],
-          ParamType.int,
-          false,
-        ),
-        productDocumentId: deserializeParam(
-          data['productDocumentId'],
+  static ProductStruct fromSerializableMap(Map<String, dynamic> data) =>
+      ProductStruct(
+        productId: deserializeParam(
+          data['product_id'],
           ParamType.DocumentReference,
           false,
-          collectionNamePath: ['products'],
+          collectionNamePath: ['cafes', 'products'],
         ),
         name: deserializeParam(
           data['name'],
@@ -120,6 +114,11 @@ class ProductsStruct extends FFFirebaseStruct {
           ParamType.String,
           false,
         ),
+        imageUrl: deserializeParam(
+          data['image_url'],
+          ParamType.String,
+          false,
+        ),
         price: deserializeParam(
           data['price'],
           ParamType.double,
@@ -128,25 +127,25 @@ class ProductsStruct extends FFFirebaseStruct {
       );
 
   @override
-  String toString() => 'ProductsStruct(${toMap()})';
+  String toString() => 'ProductStruct(${toMap()})';
 }
 
-ProductsStruct createProductsStruct({
-  int? count,
-  DocumentReference? productDocumentId,
+ProductStruct createProductStruct({
+  DocumentReference? productId,
   String? name,
   String? description,
+  String? imageUrl,
   double? price,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
   bool delete = false,
 }) =>
-    ProductsStruct(
-      count: count,
-      productDocumentId: productDocumentId,
+    ProductStruct(
+      productId: productId,
       name: name,
       description: description,
+      imageUrl: imageUrl,
       price: price,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
@@ -156,55 +155,54 @@ ProductsStruct createProductsStruct({
       ),
     );
 
-ProductsStruct? updateProductsStruct(
-  ProductsStruct? products, {
+ProductStruct? updateProductStruct(
+  ProductStruct? product, {
   bool clearUnsetFields = true,
 }) =>
-    products
+    product
       ?..firestoreUtilData =
           FirestoreUtilData(clearUnsetFields: clearUnsetFields);
 
-void addProductsStructData(
+void addProductStructData(
   Map<String, dynamic> firestoreData,
-  ProductsStruct? products,
+  ProductStruct? product,
   String fieldName, [
   bool forFieldValue = false,
 ]) {
   firestoreData.remove(fieldName);
-  if (products == null) {
+  if (product == null) {
     return;
   }
-  if (products.firestoreUtilData.delete) {
+  if (product.firestoreUtilData.delete) {
     firestoreData[fieldName] = FieldValue.delete();
     return;
   }
-  if (!forFieldValue && products.firestoreUtilData.clearUnsetFields) {
+  if (!forFieldValue && product.firestoreUtilData.clearUnsetFields) {
     firestoreData[fieldName] = <String, dynamic>{};
   }
-  final productsData = getProductsFirestoreData(products, forFieldValue);
-  final nestedData = productsData.map((k, v) => MapEntry('$fieldName.$k', v));
+  final productData = getProductFirestoreData(product, forFieldValue);
+  final nestedData = productData.map((k, v) => MapEntry('$fieldName.$k', v));
 
-  final create = products.firestoreUtilData.create;
+  final create = product.firestoreUtilData.create;
   firestoreData.addAll(create ? mergeNestedFields(nestedData) : nestedData);
 }
 
-Map<String, dynamic> getProductsFirestoreData(
-  ProductsStruct? products, [
+Map<String, dynamic> getProductFirestoreData(
+  ProductStruct? product, [
   bool forFieldValue = false,
 ]) {
-  if (products == null) {
+  if (product == null) {
     return {};
   }
-  final firestoreData = mapToFirestore(products.toMap());
+  final firestoreData = mapToFirestore(product.toMap());
 
   // Add any Firestore field values
-  products.firestoreUtilData.fieldValues
-      .forEach((k, v) => firestoreData[k] = v);
+  product.firestoreUtilData.fieldValues.forEach((k, v) => firestoreData[k] = v);
 
   return forFieldValue ? mergeNestedFields(firestoreData) : firestoreData;
 }
 
-List<Map<String, dynamic>> getProductsListFirestoreData(
-  List<ProductsStruct>? productss,
+List<Map<String, dynamic>> getProductListFirestoreData(
+  List<ProductStruct>? products,
 ) =>
-    productss?.map((e) => getProductsFirestoreData(e, true)).toList() ?? [];
+    products?.map((e) => getProductFirestoreData(e, true)).toList() ?? [];

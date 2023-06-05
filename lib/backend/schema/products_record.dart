@@ -19,30 +19,19 @@ class ProductsRecord extends FirestoreRecord {
   String get name => _name ?? '';
   bool hasName() => _name != null;
 
-  // "description" field.
-  String? _description;
-  String get description => _description ?? '';
-  bool hasDescription() => _description != null;
-
-  // "price" field.
-  double? _price;
-  double get price => _price ?? 0.0;
-  bool hasPrice() => _price != null;
-
-  // "category_id" field.
-  DocumentReference? _categoryId;
-  DocumentReference? get categoryId => _categoryId;
-  bool hasCategoryId() => _categoryId != null;
+  DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
-    _description = snapshotData['description'] as String?;
-    _price = castToType<double>(snapshotData['price']);
-    _categoryId = snapshotData['category_id'] as DocumentReference?;
   }
 
-  static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('products');
+  static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
+      parent != null
+          ? parent.collection('products')
+          : FirebaseFirestore.instance.collectionGroup('products');
+
+  static DocumentReference createDoc(DocumentReference parent) =>
+      parent.collection('products').doc();
 
   static Stream<ProductsRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => ProductsRecord.fromSnapshot(s));
@@ -69,16 +58,10 @@ class ProductsRecord extends FirestoreRecord {
 
 Map<String, dynamic> createProductsRecordData({
   String? name,
-  String? description,
-  double? price,
-  DocumentReference? categoryId,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'name': name,
-      'description': description,
-      'price': price,
-      'category_id': categoryId,
     }.withoutNulls,
   );
 

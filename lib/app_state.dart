@@ -18,38 +18,18 @@ class FFAppState extends ChangeNotifier {
   Future initializePersistedState() async {
     secureStorage = FlutterSecureStorage();
     await _safeInitAsync(() async {
-      _products = (await secureStorage.getStringList('ff_products'))
-              ?.map((x) {
-                try {
-                  return ProductsStruct.fromSerializableMap(jsonDecode(x));
-                } catch (e) {
-                  print("Can't decode persisted data type. Error: $e.");
-                  return null;
-                }
-              })
-              .withoutNulls
-              .toList() ??
-          _products;
-    });
-    await _safeInitAsync(() async {
       _currency = await secureStorage.getString('ff_currency') ?? _currency;
     });
     await _safeInitAsync(() async {
-      _cafe = (await secureStorage.getString('ff_cafe'))?.ref ?? _cafe;
-    });
-    await _safeInitAsync(() async {
-      _orders = (await secureStorage.getStringList('ff_orders'))
-              ?.map((x) {
-                try {
-                  return ProductsStruct.fromSerializableMap(jsonDecode(x));
-                } catch (e) {
-                  print("Can't decode persisted data type. Error: $e.");
-                  return null;
-                }
-              })
-              .withoutNulls
-              .toList() ??
-          _orders;
+      if (await secureStorage.read(key: 'ff_cafe') != null) {
+        try {
+          final serializedData =
+              await secureStorage.getString('ff_cafe') ?? '{}';
+          _cafe = CafeStruct.fromSerializableMap(jsonDecode(serializedData));
+        } catch (e) {
+          print("Can't decode persisted data type. Error: $e.");
+        }
+      }
     });
   }
 
@@ -59,45 +39,6 @@ class FFAppState extends ChangeNotifier {
   }
 
   late FlutterSecureStorage secureStorage;
-
-  List<ProductsStruct> _products = [];
-  List<ProductsStruct> get products => _products;
-  set products(List<ProductsStruct> _value) {
-    _products = _value;
-    secureStorage.setStringList(
-        'ff_products', _value.map((x) => x.serialize()).toList());
-  }
-
-  void deleteProducts() {
-    secureStorage.delete(key: 'ff_products');
-  }
-
-  void addToProducts(ProductsStruct _value) {
-    _products.add(_value);
-    secureStorage.setStringList(
-        'ff_products', _products.map((x) => x.serialize()).toList());
-  }
-
-  void removeFromProducts(ProductsStruct _value) {
-    _products.remove(_value);
-    secureStorage.setStringList(
-        'ff_products', _products.map((x) => x.serialize()).toList());
-  }
-
-  void removeAtIndexFromProducts(int _index) {
-    _products.removeAt(_index);
-    secureStorage.setStringList(
-        'ff_products', _products.map((x) => x.serialize()).toList());
-  }
-
-  void updateProductsAtIndex(
-    int _index,
-    Function(ProductsStruct) updateFn,
-  ) {
-    updateFn(_products[_index]);
-    secureStorage.setStringList(
-        'ff_products', _products.map((x) => x.serialize()).toList());
-  }
 
   String _currency = '\$';
   String get currency => _currency;
@@ -110,56 +51,20 @@ class FFAppState extends ChangeNotifier {
     secureStorage.delete(key: 'ff_currency');
   }
 
-  DocumentReference? _cafe;
-  DocumentReference? get cafe => _cafe;
-  set cafe(DocumentReference? _value) {
+  CafeStruct _cafe = CafeStruct();
+  CafeStruct get cafe => _cafe;
+  set cafe(CafeStruct _value) {
     _cafe = _value;
-    _value != null
-        ? secureStorage.setString('ff_cafe', _value.path)
-        : secureStorage.remove('ff_cafe');
+    secureStorage.setString('ff_cafe', _value.serialize());
   }
 
   void deleteCafe() {
     secureStorage.delete(key: 'ff_cafe');
   }
 
-  List<ProductsStruct> _orders = [];
-  List<ProductsStruct> get orders => _orders;
-  set orders(List<ProductsStruct> _value) {
-    _orders = _value;
-    secureStorage.setStringList(
-        'ff_orders', _value.map((x) => x.serialize()).toList());
-  }
-
-  void deleteOrders() {
-    secureStorage.delete(key: 'ff_orders');
-  }
-
-  void addToOrders(ProductsStruct _value) {
-    _orders.add(_value);
-    secureStorage.setStringList(
-        'ff_orders', _orders.map((x) => x.serialize()).toList());
-  }
-
-  void removeFromOrders(ProductsStruct _value) {
-    _orders.remove(_value);
-    secureStorage.setStringList(
-        'ff_orders', _orders.map((x) => x.serialize()).toList());
-  }
-
-  void removeAtIndexFromOrders(int _index) {
-    _orders.removeAt(_index);
-    secureStorage.setStringList(
-        'ff_orders', _orders.map((x) => x.serialize()).toList());
-  }
-
-  void updateOrdersAtIndex(
-    int _index,
-    Function(ProductsStruct) updateFn,
-  ) {
-    updateFn(_orders[_index]);
-    secureStorage.setStringList(
-        'ff_orders', _orders.map((x) => x.serialize()).toList());
+  void updateCafeStruct(Function(CafeStruct) updateFn) {
+    updateFn(_cafe);
+    secureStorage.setString('ff_cafe', _cafe.serialize());
   }
 }
 

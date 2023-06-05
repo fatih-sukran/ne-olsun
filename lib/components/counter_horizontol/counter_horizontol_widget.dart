@@ -1,10 +1,7 @@
-import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,12 +10,7 @@ import 'counter_horizontol_model.dart';
 export 'counter_horizontol_model.dart';
 
 class CounterHorizontolWidget extends StatefulWidget {
-  const CounterHorizontolWidget({
-    Key? key,
-    required this.product,
-  }) : super(key: key);
-
-  final ProductsStruct? product;
+  const CounterHorizontolWidget({Key? key}) : super(key: key);
 
   @override
   _CounterHorizontolWidgetState createState() =>
@@ -38,13 +30,6 @@ class _CounterHorizontolWidgetState extends State<CounterHorizontolWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => CounterHorizontolModel());
-
-    // On component load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        _model.num = widget.product!.count;
-      });
-    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -83,25 +68,13 @@ class _CounterHorizontolWidgetState extends State<CounterHorizontolWidget> {
                 color: FlutterFlowTheme.of(context).primaryText,
                 size: 15.0,
               ),
-              onPressed: () async {
-                await actions.incrememenHorizontal(
-                  widget.product!,
-                  -1,
-                );
-                setState(() {
-                  _model.num = widget.product!.count;
-                });
-                FFAppState().update(() {
-                  FFAppState().products = FFAppState().products.toList();
-                });
+              onPressed: () {
+                print('IconButton pressed ...');
               },
             ),
           ),
           Text(
-            valueOrDefault<String>(
-              widget.product?.count?.toString(),
-              '0',
-            ),
+            '0',
             style: FlutterFlowTheme.of(context).titleLarge,
           ),
           FlutterFlowIconButton(
@@ -115,17 +88,8 @@ class _CounterHorizontolWidgetState extends State<CounterHorizontolWidget> {
               color: FlutterFlowTheme.of(context).primaryText,
               size: 15.0,
             ),
-            onPressed: () async {
-              await actions.incrememenHorizontal(
-                widget.product!,
-                1,
-              );
-              setState(() {
-                _model.num = _model.num + 1;
-              });
-              FFAppState().update(() {
-                FFAppState().products = FFAppState().products.toList();
-              });
+            onPressed: () {
+              print('IconButton pressed ...');
             },
           ),
         ],

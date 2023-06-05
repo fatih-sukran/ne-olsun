@@ -120,16 +120,23 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget>
 
         return;
       } else {
-        if (FFAppState().orders.length != 0) {
-          context.goNamed('orders');
+        if (FFAppState().cafe.cafeId != null) {
+          if (FFAppState()
+                  .cafe
+                  .table
+                  .orders
+                  .where((e) => e.status == 0)
+                  .toList()
+                  .length >=
+              1) {
+            context.goNamed('categories');
+          } else {
+            context.goNamed('orders');
+          }
 
           return;
         } else {
-          if (FFAppState().products.length != 0) {
-            context.goNamed('categories');
-          } else {
-            context.goNamed('ScanQr');
-          }
+          context.goNamed('scan_qr');
 
           return;
         }
