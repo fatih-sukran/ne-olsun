@@ -85,6 +85,7 @@ class _CounterWidgetState extends State<CounterWidget> {
               await _model.incrementButtonActions(
                 context,
                 step: 1,
+                order: widget.product,
               );
             },
           ),
@@ -107,6 +108,7 @@ class _CounterWidgetState extends State<CounterWidget> {
               await _model.incrementButtonActions(
                 context,
                 step: -1,
+                order: widget.product,
               );
             },
           ),

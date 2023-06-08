@@ -28,9 +28,10 @@ class CounterModel extends FlutterFlowModel {
   Future incrementButtonActions(
     BuildContext context, {
     required int? step,
+    required ProductsRecord? order,
   }) async {
     await actions.counterOfProducts(
-      widget.product!,
+      order!,
       step!,
     );
     num = functions.getProductCount(
