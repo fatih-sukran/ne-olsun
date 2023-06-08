@@ -43,6 +43,9 @@ class FFAppState extends ChangeNotifier {
               .toList() ??
           _orderProducts;
     });
+    _safeInit(() {
+      _price = prefs.getDouble('ff_price') ?? _price;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -99,11 +102,18 @@ class FFAppState extends ChangeNotifier {
 
   void updateOrderProductsAtIndex(
     int _index,
-    Function(OrderDetailStruct) updateFn,
+    OrderDetailStruct Function(OrderDetailStruct) updateFn,
   ) {
-    updateFn(_orderProducts[_index]);
+    _orderProducts[_index] = updateFn(_orderProducts[_index]);
     prefs.setStringList(
         'ff_orderProducts', _orderProducts.map((x) => x.serialize()).toList());
+  }
+
+  double _price = 0;
+  double get price => _price;
+  set price(double _value) {
+    _price = _value;
+    prefs.setDouble('ff_price', _value);
   }
 }
 

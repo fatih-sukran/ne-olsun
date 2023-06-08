@@ -115,6 +115,19 @@ class OrderDetailStruct extends FFFirebaseStruct {
 
   @override
   String toString() => 'OrderDetailStruct(${toMap()})';
+
+  @override
+  bool operator ==(Object other) {
+    return other is OrderDetailStruct &&
+        orderDetailId == other.orderDetailId &&
+        product == other.product &&
+        count == other.count &&
+        completedCount == other.completedCount;
+  }
+
+  @override
+  int get hashCode => const ListEquality()
+      .hash([orderDetailId, product, count, completedCount]);
 }
 
 OrderDetailStruct createOrderDetailStruct({

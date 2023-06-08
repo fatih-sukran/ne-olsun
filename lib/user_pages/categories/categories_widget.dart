@@ -20,7 +20,6 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
   late CategoriesModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -34,7 +33,6 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -46,7 +44,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
         title: 'categories',
         color: FlutterFlowTheme.of(context).primary,
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+          onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,

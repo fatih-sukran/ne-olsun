@@ -21,7 +21,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
   late LoginPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -37,7 +36,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -49,7 +47,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
         title: 'login_page',
         color: FlutterFlowTheme.of(context).primary,
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+          onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,

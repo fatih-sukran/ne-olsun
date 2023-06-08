@@ -9,19 +9,17 @@ import 'package:provider/provider.dart';
 class CartPageModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
-  // Model for counter_horizontol component.
-  late CounterHorizontolModel counterHorizontolModel;
+  final unfocusNode = FocusNode();
 
   /// Initialization and disposal methods.
 
-  void initState(BuildContext context) {
-    counterHorizontolModel =
-        createModel(context, () => CounterHorizontolModel());
-  }
+  void initState(BuildContext context) {}
 
   void dispose() {
-    counterHorizontolModel.dispose();
+    unfocusNode.dispose();
   }
+
+  /// Action blocks are added here.
 
   /// Additional helper methods are added here.
 

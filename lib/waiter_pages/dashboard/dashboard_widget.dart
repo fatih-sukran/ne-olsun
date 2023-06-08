@@ -24,7 +24,6 @@ class _DashboardWidgetState extends State<DashboardWidget>
   late DashboardModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   final animationsMap = {
     'textOnPageLoadAnimation1': AnimationInfo(
@@ -548,7 +547,6 @@ class _DashboardWidgetState extends State<DashboardWidget>
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -560,7 +558,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
         title: 'dashboard',
         color: FlutterFlowTheme.of(context).primary,
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+          onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,

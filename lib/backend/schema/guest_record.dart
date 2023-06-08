@@ -46,6 +46,14 @@ class GuestRecord extends FirestoreRecord {
   @override
   String toString() =>
       'GuestRecord(reference: ${reference.path}, data: $snapshotData)';
+
+  @override
+  int get hashCode => reference.path.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      other is GuestRecord &&
+      reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createGuestRecordData({

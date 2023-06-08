@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 class CategoriesModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   // Model for logout_button component.
   late LogoutButtonModel logoutButtonModel;
 
@@ -20,8 +21,11 @@ class CategoriesModel extends FlutterFlowModel {
   }
 
   void dispose() {
+    unfocusNode.dispose();
     logoutButtonModel.dispose();
   }
+
+  /// Action blocks are added here.
 
   /// Additional helper methods are added here.
 

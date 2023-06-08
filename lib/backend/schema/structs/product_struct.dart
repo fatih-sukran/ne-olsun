@@ -128,6 +128,20 @@ class ProductStruct extends FFFirebaseStruct {
 
   @override
   String toString() => 'ProductStruct(${toMap()})';
+
+  @override
+  bool operator ==(Object other) {
+    return other is ProductStruct &&
+        productId == other.productId &&
+        name == other.name &&
+        description == other.description &&
+        imageUrl == other.imageUrl &&
+        price == other.price;
+  }
+
+  @override
+  int get hashCode => const ListEquality()
+      .hash([productId, name, description, imageUrl, price]);
 }
 
 ProductStruct createProductStruct({

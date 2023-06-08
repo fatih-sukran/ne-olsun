@@ -92,6 +92,17 @@ class CafeStruct extends FFFirebaseStruct {
 
   @override
   String toString() => 'CafeStruct(${toMap()})';
+
+  @override
+  bool operator ==(Object other) {
+    return other is CafeStruct &&
+        cafeId == other.cafeId &&
+        cafeName == other.cafeName &&
+        table == other.table;
+  }
+
+  @override
+  int get hashCode => const ListEquality().hash([cafeId, cafeName, table]);
 }
 
 CafeStruct createCafeStruct({

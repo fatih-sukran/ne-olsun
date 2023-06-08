@@ -72,6 +72,14 @@ class OrderProductsRecord extends FirestoreRecord {
   @override
   String toString() =>
       'OrderProductsRecord(reference: ${reference.path}, data: $snapshotData)';
+
+  @override
+  int get hashCode => reference.path.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      other is OrderProductsRecord &&
+      reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createOrderProductsRecordData({

@@ -23,7 +23,6 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget>
   late SplashScreenModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   final animationsMap = {
     'containerOnPageLoadAnimation1': AnimationInfo(
@@ -115,6 +114,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget>
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      setDarkModeSetting(context, ThemeMode.light);
       if (currentUserUid != null && currentUserUid != '') {
         context.goNamed('dashboard');
 
@@ -150,7 +150,6 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget>
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -162,7 +161,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget>
         title: 'splash_screen',
         color: FlutterFlowTheme.of(context).primary,
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+          onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,

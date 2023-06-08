@@ -2,8 +2,10 @@ import '/backend/backend.dart';
 import '/components/counter/counter_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/actions/actions.dart' as action_blocks;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -26,12 +28,16 @@ class _CategoryDetailWidgetState extends State<CategoryDetailWidget> {
   late CategoryDetailModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => CategoryDetailModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await action_blocks.updateTotalOrderPrice(context);
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -40,7 +46,6 @@ class _CategoryDetailWidgetState extends State<CategoryDetailWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -52,7 +57,7 @@ class _CategoryDetailWidgetState extends State<CategoryDetailWidget> {
         title: 'category_detail',
         color: FlutterFlowTheme.of(context).primary,
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+          onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -106,7 +111,7 @@ class _CategoryDetailWidgetState extends State<CategoryDetailWidget> {
                             ),
                           ),
                           Text(
-                            '123.45\$',
+                            '${FFAppState().currency}${FFAppState().price.toString()}',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -410,6 +415,7 @@ class _CategoryDetailWidgetState extends State<CategoryDetailWidget> {
                                     CounterWidget(
                                       key: Key(
                                           'Keynt2_${listViewIndex}_of_${listViewProductsRecordList.length}'),
+                                      product: listViewProductsRecord,
                                     ),
                                   ],
                                 ),

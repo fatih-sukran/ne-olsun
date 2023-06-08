@@ -116,6 +116,20 @@ class TableStruct extends FFFirebaseStruct {
 
   @override
   String toString() => 'TableStruct(${toMap()})';
+
+  @override
+  bool operator ==(Object other) {
+    const listEquality = ListEquality();
+    return other is TableStruct &&
+        tableId == other.tableId &&
+        name == other.name &&
+        status == other.status &&
+        listEquality.equals(orders, other.orders);
+  }
+
+  @override
+  int get hashCode =>
+      const ListEquality().hash([tableId, name, status, orders]);
 }
 
 TableStruct createTableStruct({

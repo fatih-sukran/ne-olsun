@@ -113,7 +113,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         ),
         FFRoute(
           name: 'payment_page',
-          path: '/paymentPage',
+          path: '/payment_page',
           builder: (context, params) => PaymentPageWidget(),
         ),
         FFRoute(

@@ -21,7 +21,6 @@ class _ScanQrWidgetState extends State<ScanQrWidget> {
   late ScanQrModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -43,7 +42,6 @@ class _ScanQrWidgetState extends State<ScanQrWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -55,7 +53,7 @@ class _ScanQrWidgetState extends State<ScanQrWidget> {
         title: 'scan_qr',
         color: FlutterFlowTheme.of(context).primary,
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+          onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
