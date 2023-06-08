@@ -28,6 +28,21 @@ class FFAppState extends ChangeNotifier {
         }
       }
     });
+    _safeInit(() {
+      _orderProducts = prefs
+              .getStringList('ff_orderProducts')
+              ?.map((x) {
+                try {
+                  return OrderDetailStruct.fromSerializableMap(jsonDecode(x));
+                } catch (e) {
+                  print("Can't decode persisted data type. Error: $e.");
+                  return null;
+                }
+              })
+              .withoutNulls
+              .toList() ??
+          _orderProducts;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -54,6 +69,41 @@ class FFAppState extends ChangeNotifier {
   void updateCafeStruct(Function(CafeStruct) updateFn) {
     updateFn(_cafe);
     prefs.setString('ff_cafe', _cafe.serialize());
+  }
+
+  List<OrderDetailStruct> _orderProducts = [];
+  List<OrderDetailStruct> get orderProducts => _orderProducts;
+  set orderProducts(List<OrderDetailStruct> _value) {
+    _orderProducts = _value;
+    prefs.setStringList(
+        'ff_orderProducts', _value.map((x) => x.serialize()).toList());
+  }
+
+  void addToOrderProducts(OrderDetailStruct _value) {
+    _orderProducts.add(_value);
+    prefs.setStringList(
+        'ff_orderProducts', _orderProducts.map((x) => x.serialize()).toList());
+  }
+
+  void removeFromOrderProducts(OrderDetailStruct _value) {
+    _orderProducts.remove(_value);
+    prefs.setStringList(
+        'ff_orderProducts', _orderProducts.map((x) => x.serialize()).toList());
+  }
+
+  void removeAtIndexFromOrderProducts(int _index) {
+    _orderProducts.removeAt(_index);
+    prefs.setStringList(
+        'ff_orderProducts', _orderProducts.map((x) => x.serialize()).toList());
+  }
+
+  void updateOrderProductsAtIndex(
+    int _index,
+    Function(OrderDetailStruct) updateFn,
+  ) {
+    updateFn(_orderProducts[_index]);
+    prefs.setStringList(
+        'ff_orderProducts', _orderProducts.map((x) => x.serialize()).toList());
   }
 }
 
