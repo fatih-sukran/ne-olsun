@@ -103,7 +103,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'category_detail',
           path: '/category_detail',
-          builder: (context, params) => CategoryDetailWidget(),
+          asyncParams: {
+            'category':
+                getDoc(['cafes', 'categories'], CategoriesRecord.fromSnapshot),
+          },
+          builder: (context, params) => CategoryDetailWidget(
+            category: params.getParam('category', ParamType.Document),
+          ),
         ),
         FFRoute(
           name: 'payment_page',

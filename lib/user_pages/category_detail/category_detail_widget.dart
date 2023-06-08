@@ -1,3 +1,4 @@
+import '/backend/backend.dart';
 import '/components/counter/counter_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -10,7 +11,12 @@ import 'category_detail_model.dart';
 export 'category_detail_model.dart';
 
 class CategoryDetailWidget extends StatefulWidget {
-  const CategoryDetailWidget({Key? key}) : super(key: key);
+  const CategoryDetailWidget({
+    Key? key,
+    required this.category,
+  }) : super(key: key);
+
+  final CategoriesRecord? category;
 
   @override
   _CategoryDetailWidgetState createState() => _CategoryDetailWidgetState();
@@ -54,7 +60,7 @@ class _CategoryDetailWidgetState extends State<CategoryDetailWidget> {
               backgroundColor: FlutterFlowTheme.of(context).primary,
               automaticallyImplyLeading: true,
               title: Text(
-                'Kahvaltılıklar',
+                widget.category!.name,
                 style: FlutterFlowTheme.of(context).titleLarge.override(
                       fontFamily: 'Poppins',
                       color: FlutterFlowTheme.of(context).secondaryBackground,
@@ -118,254 +124,303 @@ class _CategoryDetailWidgetState extends State<CategoryDetailWidget> {
               elevation: 0.0,
             ),
             body: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
-              child: ListView(
-                padding: EdgeInsets.zero,
-                primary: false,
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 8.0),
-                    child: Container(
-                      width: 340.0,
-                      height: 190.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 3.0,
-                            color: Color(0x411D2429),
-                            offset: Offset(0.0, 1.0),
-                          )
-                        ],
-                        borderRadius: BorderRadius.circular(8.0),
+              padding: EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 12.0),
+              child: FutureBuilder<List<ProductsRecord>>(
+                future: queryProductsRecordOnce(
+                  parent: FFAppState().cafe.cafeId,
+                  queryBuilder: (productsRecord) => productsRecord.where(
+                      'category_id',
+                      isEqualTo: widget.category!.reference),
+                ),
+                builder: (context, snapshot) {
+                  // Customize what your widget looks like when it's loading.
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 50.0,
+                        height: 50.0,
+                        child: SpinKitFadingFour(
+                          color: FlutterFlowTheme.of(context).primary,
+                          size: 50.0,
+                        ),
                       ),
-                      child: Padding(
+                    );
+                  }
+                  List<ProductsRecord> listViewProductsRecordList =
+                      snapshot.data!;
+                  return ListView.builder(
+                    padding: EdgeInsets.zero,
+                    primary: false,
+                    scrollDirection: Axis.vertical,
+                    itemCount: listViewProductsRecordList.length,
+                    itemBuilder: (context, listViewIndex) {
+                      final listViewProductsRecord =
+                          listViewProductsRecordList[listViewIndex];
+                      return Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 8.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Expanded(
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 1.0, 1.0, 1.0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(6.0),
-                                      child: Image.network(
-                                        'https://images.unsplash.com/photo-1547496502-affa22d38842?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2177&q=80',
-                                        width: 100.0,
-                                        height: 160.0,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          6.0, 6.0, 6.0, 6.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'Panini Tost',
-                                                textAlign: TextAlign.start,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineSmall,
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 4.0, 8.0, 0.0),
-                                                child: AutoSizeText(
-                                                  'Domates , hindi füme ve beyaz peynir ile',
-                                                  textAlign: TextAlign.start,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodySmall,
-                                                ),
-                                              ),
-                                            ],
+                            EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 4.0),
+                        child: Container(
+                          width: 340.0,
+                          height: 190.0,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 3.0,
+                                color: Color(0x411D2429),
+                                offset: Offset(0.0, 1.0),
+                              )
+                            ],
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                8.0, 8.0, 8.0, 8.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Expanded(
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 1.0, 1.0, 1.0),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(6.0),
+                                          child: Image.network(
+                                            listViewProductsRecord.imageUrl,
+                                            width: 100.0,
+                                            height: 160.0,
+                                            fit: BoxFit.cover,
                                           ),
-                                          Row(
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  6.0, 6.0, 6.0, 6.0),
+                                          child: Column(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 3.0, 0.0, 0.0),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  5.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        0.0,
-                                                                        0.0,
-                                                                        3.0),
-                                                            child: Image.asset(
-                                                              'assets/images/Combined_Shape-2.png',
-                                                              width: 20.0,
-                                                              height: 20.0,
-                                                              fit: BoxFit
-                                                                  .contain,
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            'Gluten',
-                                                            style: TextStyle(
-                                                              fontSize: 8.0,
-                                                            ),
-                                                          ),
-                                                        ],
+                                              Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    listViewProductsRecord.name,
+                                                    textAlign: TextAlign.start,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .headlineSmall,
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 4.0,
+                                                                8.0, 0.0),
+                                                    child: AutoSizeText(
+                                                      listViewProductsRecord
+                                                          .description
+                                                          .maybeHandleOverflow(
+                                                        maxChars: 70,
+                                                        replacement: '…',
                                                       ),
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodySmall,
                                                     ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  5.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        0.0,
-                                                                        0.0,
-                                                                        3.0),
-                                                            child: Image.asset(
-                                                              'assets/images/Combined_Shape-1.png',
-                                                              width: 20.0,
-                                                              height: 20.0,
-                                                              fit: BoxFit
-                                                                  .contain,
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            'Gluten',
-                                                            style: TextStyle(
-                                                              fontSize: 8.0,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  5.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        0.0,
-                                                                        0.0,
-                                                                        3.0),
-                                                            child: Image.asset(
-                                                              'assets/images/Combined_Shape.png',
-                                                              width: 20.0,
-                                                              height: 20.0,
-                                                              fit: BoxFit
-                                                                  .contain,
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            'Gluten',
-                                                            style: TextStyle(
-                                                              fontSize: 8.0,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
+                                                  ),
+                                                ],
                                               ),
                                               Row(
                                                 mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
-                                                  Text(
-                                                    '${FFAppState().currency}',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium,
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 3.0,
+                                                                0.0, 0.0),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      5.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            3.0),
+                                                                child:
+                                                                    Image.asset(
+                                                                  'assets/images/Combined_Shape-2.png',
+                                                                  width: 20.0,
+                                                                  height: 20.0,
+                                                                  fit: BoxFit
+                                                                      .contain,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                'Gluten',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 8.0,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      5.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            3.0),
+                                                                child:
+                                                                    Image.asset(
+                                                                  'assets/images/Combined_Shape-1.png',
+                                                                  width: 20.0,
+                                                                  height: 20.0,
+                                                                  fit: BoxFit
+                                                                      .contain,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                'Gluten',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 8.0,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      5.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            3.0),
+                                                                child:
+                                                                    Image.asset(
+                                                                  'assets/images/Combined_Shape.png',
+                                                                  width: 20.0,
+                                                                  height: 20.0,
+                                                                  fit: BoxFit
+                                                                      .contain,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                'Gluten',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 8.0,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Text(
+                                                        '${FFAppState().currency}${listViewProductsRecord.price.toString()}',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium,
+                                                      ),
+                                                    ],
                                                   ),
                                                 ],
                                               ),
                                             ],
                                           ),
-                                        ],
+                                        ),
                                       ),
-                                    ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                wrapWithModel(
-                                  model: _model.counterModel,
-                                  updateCallback: () => setState(() {}),
-                                  updateOnChange: true,
-                                  child: CounterWidget(),
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    CounterWidget(
+                                      key: Key(
+                                          'Keynt2_${listViewIndex}_of_${listViewProductsRecordList.length}'),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                ],
+                      );
+                    },
+                  );
+                },
               ),
             ),
           ),

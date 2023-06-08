@@ -8,20 +8,51 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-// Set your action name, define your arguments and return parameter,
-// and then add the boilerplate code using the button on the right!
-Future newCustomAction() async {
+Future newCustomAction(
+  String cafeName,
+  String tableName,
+) async {
   // Add your function code here!
-  var a = await FirebaseFirestore.instance
+  var cafeDoc = await FirebaseFirestore.instance
       .collection('cafes')
-      .where("name", isEqualTo: "Fatih Cafe")
+      .where("name", isEqualTo: cafeName)
       .get();
+  print("cafes id: ${cafeDoc.docs[0].id}");
+  var tableDoc = await cafeDoc.docs[0].reference
+      .collection('tables')
+      .where('name', isEqualTo: "Masa 1")
+      .get();
+  print('tables');
+  var ordersDoc = await cafeDoc.docs[0].reference
+      .collection('orders')
+      .where('table_id', isEqualTo: tableDoc.docs[0].id)
+      .get();
+  print('orders');
+  var orders = <OrderStruct>[];
+  for (var orderDoc in ordersDoc.docs) {
+    var order = OrderStruct(
+      orderId: orderDoc.reference,
+      note: orderDoc.get('note'),
+      status: orderDoc.get('status'),
+      orderDetails: [],
+    );
+    orders.add(order);
+  }
 
-  print('a.size: ${a.size}');
-  print('a.docs[0].id: ${a.docs[0].id}');
-  print('a.docs[0].reference.id: ${a.docs[0].reference.id}');
-  print('a.docs[0].data: ${a.docs[0].data()}');
-  print('a.docs[0].get("name"): ${a.docs[0].get("name")}');
-  print('a.docs[0].runtimeType: ${a.docs[0].runtimeType}');
-  print(a);
+  var table = TableStruct(
+    tableId: tableDoc.docs[0].reference,
+    name: tableDoc.docs[0].get('name'),
+    status: tableDoc.docs[0].get('status'),
+    orders: orders,
+  );
+
+  var cafe = CafeStruct(
+    cafeId: cafeDoc.docs[0].reference,
+    cafeName: cafeDoc.docs[0].get('name'),
+    table: table,
+  );
+
+  FFAppState().cafe = cafe;
+
+  print('cafe.id: ${FFAppState().cafe.cafeId}');
 }

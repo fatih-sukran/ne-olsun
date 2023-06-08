@@ -30,7 +30,10 @@ class _ScanQrWidgetState extends State<ScanQrWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await actions.newCustomAction();
+      await actions.newCustomAction(
+        'Fatih Cafe',
+        'Masa 1',
+      );
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -95,8 +98,8 @@ class _ScanQrWidgetState extends State<ScanQrWidget> {
                     padding:
                         EdgeInsetsDirectional.fromSTEB(13.0, 13.0, 13.0, 13.0),
                     child: FFButtonWidget(
-                      onPressed: () {
-                        print('Button pressed ...');
+                      onPressed: () async {
+                        context.goNamed('categories');
                       },
                       text: 'Scan QR Code',
                       options: FFButtonOptions(
@@ -124,8 +127,8 @@ class _ScanQrWidgetState extends State<ScanQrWidget> {
                     padding:
                         EdgeInsetsDirectional.fromSTEB(13.0, 13.0, 13.0, 13.0),
                     child: FFButtonWidget(
-                      onPressed: () {
-                        print('Button pressed ...');
+                      onPressed: () async {
+                        context.goNamed('login_page');
                       },
                       text: 'Go to Login',
                       options: FFButtonOptions(

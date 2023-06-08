@@ -1,3 +1,4 @@
+import '/backend/backend.dart';
 import '/components/logout_button/logout_button_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -60,7 +61,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      'Eda Cafe Menu',
+                      '${FFAppState().cafe.cafeName} Cafe',
                       textAlign: TextAlign.center,
                       style:
                           FlutterFlowTheme.of(context).headlineMedium.override(
@@ -85,55 +86,104 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
             ),
             body: SafeArea(
               top: true,
-              child: ListView(
-                padding: EdgeInsets.zero,
-                scrollDirection: Axis.vertical,
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(21.0, 21.0, 21.0, 21.0),
-                    child: Container(
-                      width: 340.0,
-                      height: 190.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        borderRadius: BorderRadius.circular(13.0),
+              child: FutureBuilder<List<CategoriesRecord>>(
+                future: queryCategoriesRecordOnce(
+                  parent: FFAppState().cafe.cafeId,
+                  queryBuilder: (categoriesRecord) =>
+                      categoriesRecord.where('parent_id', isEqualTo: null),
+                ),
+                builder: (context, snapshot) {
+                  // Customize what your widget looks like when it's loading.
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 50.0,
+                        height: 50.0,
+                        child: SpinKitFadingFour(
+                          color: FlutterFlowTheme.of(context).primary,
+                          size: 50.0,
+                        ),
                       ),
-                      child: Stack(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(13.0),
-                            child: Image.asset(
-                              'assets/images/Rectangle_3.png',
-                              width: double.infinity,
-                              height: double.infinity,
-                              fit: BoxFit.cover,
+                    );
+                  }
+                  List<CategoriesRecord> listViewCategoriesRecordList =
+                      snapshot.data!;
+                  return ListView.builder(
+                    padding: EdgeInsets.zero,
+                    scrollDirection: Axis.vertical,
+                    itemCount: listViewCategoriesRecordList.length,
+                    itemBuilder: (context, listViewIndex) {
+                      final listViewCategoriesRecord =
+                          listViewCategoriesRecordList[listViewIndex];
+                      return Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            21.0, 21.0, 21.0, 21.0),
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            context.pushNamed(
+                              'category_detail',
+                              queryParameters: {
+                                'category': serializeParam(
+                                  listViewCategoriesRecord,
+                                  ParamType.Document,
+                                ),
+                              }.withoutNulls,
+                              extra: <String, dynamic>{
+                                'category': listViewCategoriesRecord,
+                              },
+                            );
+                          },
+                          child: Container(
+                            width: 340.0,
+                            height: 190.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              borderRadius: BorderRadius.circular(13.0),
+                            ),
+                            child: Stack(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(13.0),
+                                  child: Image.asset(
+                                    'assets/images/Rectangle_3.png',
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    Text(
+                                      listViewCategoriesRecord.name,
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .headlineMedium
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Text(
-                                'Kahvaltılıklar',
-                                textAlign: TextAlign.center,
-                                style: FlutterFlowTheme.of(context)
-                                    .headlineMedium
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
             ),
           ),

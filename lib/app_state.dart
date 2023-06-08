@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:csv/csv.dart';
-import 'package:synchronized/synchronized.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 
 class FFAppState extends ChangeNotifier {
@@ -16,15 +14,14 @@ class FFAppState extends ChangeNotifier {
   FFAppState._internal();
 
   Future initializePersistedState() async {
-    secureStorage = FlutterSecureStorage();
-    await _safeInitAsync(() async {
-      _currency = await secureStorage.getString('ff_currency') ?? _currency;
+    prefs = await SharedPreferences.getInstance();
+    _safeInit(() {
+      _currency = prefs.getString('ff_currency') ?? _currency;
     });
-    await _safeInitAsync(() async {
-      if (await secureStorage.read(key: 'ff_cafe') != null) {
+    _safeInit(() {
+      if (prefs.containsKey('ff_cafe')) {
         try {
-          final serializedData =
-              await secureStorage.getString('ff_cafe') ?? '{}';
+          final serializedData = prefs.getString('ff_cafe') ?? '{}';
           _cafe = CafeStruct.fromSerializableMap(jsonDecode(serializedData));
         } catch (e) {
           print("Can't decode persisted data type. Error: $e.");
@@ -38,33 +35,25 @@ class FFAppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  late FlutterSecureStorage secureStorage;
+  late SharedPreferences prefs;
 
   String _currency = '\$';
   String get currency => _currency;
   set currency(String _value) {
     _currency = _value;
-    secureStorage.setString('ff_currency', _value);
-  }
-
-  void deleteCurrency() {
-    secureStorage.delete(key: 'ff_currency');
+    prefs.setString('ff_currency', _value);
   }
 
   CafeStruct _cafe = CafeStruct();
   CafeStruct get cafe => _cafe;
   set cafe(CafeStruct _value) {
     _cafe = _value;
-    secureStorage.setString('ff_cafe', _value.serialize());
-  }
-
-  void deleteCafe() {
-    secureStorage.delete(key: 'ff_cafe');
+    prefs.setString('ff_cafe', _value.serialize());
   }
 
   void updateCafeStruct(Function(CafeStruct) updateFn) {
     updateFn(_cafe);
-    secureStorage.setString('ff_cafe', _cafe.serialize());
+    prefs.setString('ff_cafe', _cafe.serialize());
   }
 }
 
@@ -88,47 +77,4 @@ Future _safeInitAsync(Function() initializeField) async {
   try {
     await initializeField();
   } catch (_) {}
-}
-
-extension FlutterSecureStorageExtensions on FlutterSecureStorage {
-  static final _lock = Lock();
-
-  Future<void> writeSync({required String key, String? value}) async =>
-      await _lock.synchronized(() async {
-        await write(key: key, value: value);
-      });
-
-  void remove(String key) => delete(key: key);
-
-  Future<String?> getString(String key) async => await read(key: key);
-  Future<void> setString(String key, String value) async =>
-      await writeSync(key: key, value: value);
-
-  Future<bool?> getBool(String key) async => (await read(key: key)) == 'true';
-  Future<void> setBool(String key, bool value) async =>
-      await writeSync(key: key, value: value.toString());
-
-  Future<int?> getInt(String key) async =>
-      int.tryParse(await read(key: key) ?? '');
-  Future<void> setInt(String key, int value) async =>
-      await writeSync(key: key, value: value.toString());
-
-  Future<double?> getDouble(String key) async =>
-      double.tryParse(await read(key: key) ?? '');
-  Future<void> setDouble(String key, double value) async =>
-      await writeSync(key: key, value: value.toString());
-
-  Future<List<String>?> getStringList(String key) async =>
-      await read(key: key).then((result) {
-        if (result == null || result.isEmpty) {
-          return null;
-        }
-        return CsvToListConverter()
-            .convert(result)
-            .first
-            .map((e) => e.toString())
-            .toList();
-      });
-  Future<void> setStringList(String key, List<String> value) async =>
-      await writeSync(key: key, value: ListToCsvConverter().convert([value]));
 }

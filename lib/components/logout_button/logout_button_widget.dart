@@ -60,8 +60,17 @@ class _LogoutButtonWidgetState extends State<LogoutButtonWidget> {
           color: FlutterFlowTheme.of(context).secondary,
           size: 24.0,
         ),
-        onPressed: () {
-          print('IconButton pressed ...');
+        onPressed: () async {
+          setState(() {
+            FFAppState().updateCafeStruct(
+              (e) => e
+                ..cafeId = null
+                ..table = null
+                ..cafeName = null,
+            );
+          });
+
+          context.goNamed('scan_qr');
         },
       ),
     );
