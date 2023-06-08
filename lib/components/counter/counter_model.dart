@@ -34,8 +34,8 @@ class CounterModel extends FlutterFlowModel {
       order!,
       step!,
     );
-    num = functions.getProductCount(
-        FFAppState().orderProducts.toList(), widget.product!);
+    num =
+        functions.getProductCount(FFAppState().orderProducts.toList(), order!);
     await action_blocks.updateTotalOrderPrice(context);
   }
 
