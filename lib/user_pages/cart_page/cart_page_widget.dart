@@ -195,6 +195,7 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                           CounterHorizontolWidget(
                                             key: Key(
                                                 'Keybes_${productsIndex}_of_${products.length}'),
+                                            product: productsItem,
                                           ),
                                         ],
                                       ),

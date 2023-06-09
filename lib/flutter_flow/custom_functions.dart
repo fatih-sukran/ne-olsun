@@ -29,3 +29,14 @@ double getTotalOrderPrice(List<OrderDetailStruct> orders) {
       .map((e) => e.product.price * e.count)
       .fold(0, (value, element) => value + element);
 }
+
+int getProductCountForHorizantolCounter(
+  OrderDetailStruct product,
+  List<OrderDetailStruct> orderDetails,
+) {
+  var num = orderDetails
+      .where((e) => e.orderDetailId?.id == product.orderDetailId?.id)
+      .toList();
+
+  return num.isEmpty ? 0 : num.first.count;
+}

@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -10,7 +11,12 @@ import 'counter_horizontol_model.dart';
 export 'counter_horizontol_model.dart';
 
 class CounterHorizontolWidget extends StatefulWidget {
-  const CounterHorizontolWidget({Key? key}) : super(key: key);
+  const CounterHorizontolWidget({
+    Key? key,
+    required this.product,
+  }) : super(key: key);
+
+  final OrderDetailStruct? product;
 
   @override
   _CounterHorizontolWidgetState createState() =>
@@ -68,13 +74,18 @@ class _CounterHorizontolWidgetState extends State<CounterHorizontolWidget> {
                 color: FlutterFlowTheme.of(context).primaryText,
                 size: 15.0,
               ),
-              onPressed: () {
-                print('IconButton pressed ...');
+              onPressed: () async {
+                await _model.incrementActions(
+                  context,
+                  product: widget.product,
+                  step: 1,
+                );
+                setState(() {});
               },
             ),
           ),
           Text(
-            '0',
+            _model.num.toString(),
             style: FlutterFlowTheme.of(context).titleLarge,
           ),
           FlutterFlowIconButton(
@@ -88,8 +99,13 @@ class _CounterHorizontolWidgetState extends State<CounterHorizontolWidget> {
               color: FlutterFlowTheme.of(context).primaryText,
               size: 15.0,
             ),
-            onPressed: () {
-              print('IconButton pressed ...');
+            onPressed: () async {
+              await _model.incrementActions(
+                context,
+                product: widget.product,
+                step: 1,
+              );
+              setState(() {});
             },
           ),
         ],
