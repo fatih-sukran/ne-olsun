@@ -108,7 +108,7 @@ class _CounterHorizontolWidgetState extends State<CounterHorizontolWidget> {
           ),
           Text(
             valueOrDefault<String>(
-              widget.product?.count?.toString(),
+              widget.product?.count.toString(),
               '0',
             ),
             style: FlutterFlowTheme.of(context).titleLarge,
