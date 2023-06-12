@@ -1,3 +1,4 @@
+import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -33,6 +34,10 @@ class _OrdersWidgetState extends State<OrdersWidget> {
       _model.allOrderDetails = await actions.getAllOrders(
         FFAppState().cafe.cafeId!,
       );
+      setState(() {
+        _model.orders =
+            _model.allOrderDetails!.toList().cast<OrderDetailStruct>();
+      });
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -84,7 +89,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                     Expanded(
                       child: Builder(
                         builder: (context) {
-                          final orderDetails = _model.allOrderDetails!.toList();
+                          final orderDetails = _model.orders.toList();
                           return ListView.builder(
                             padding: EdgeInsets.zero,
                             shrinkWrap: true,
