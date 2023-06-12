@@ -1,13 +1,19 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
+import '../flutter_flow_theme.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 
 import '../../auth/base_auth_user_provider.dart';
 
 import '../../index.dart';
+import '../../main.dart';
+import '../lat_lng.dart';
+import '../place.dart';
 import 'serialization_util.dart';
 
 export 'package:go_router/go_router.dart';
@@ -135,6 +141,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'splash_screen',
           path: '/splash_screen',
           builder: (context, params) => SplashScreenWidget(),
+        ),
+        FFRoute(
+          name: 'table_orders',
+          path: '/table_orders',
+          requireAuth: true,
+          asyncParams: {
+            'table': getDoc(['cafes', 'tables'], TablesRecord.fromSnapshot),
+          },
+          builder: (context, params) => TableOrdersWidget(
+            table: params.getParam('table', ParamType.Document),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

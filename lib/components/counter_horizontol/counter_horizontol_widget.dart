@@ -6,7 +6,9 @@ import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'counter_horizontol_model.dart';
 export 'counter_horizontol_model.dart';
@@ -108,7 +110,7 @@ class _CounterHorizontolWidgetState extends State<CounterHorizontolWidget> {
           ),
           Text(
             valueOrDefault<String>(
-              widget.product?.count.toString(),
+              widget.product?.count?.toString(),
               '0',
             ),
             style: FlutterFlowTheme.of(context).titleLarge,
