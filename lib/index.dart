@@ -9,6 +9,6 @@ export 'pages/user_pages/payment_page/payment_page_widget.dart'
 export 'pages/user_pages/payment_successful/payment_successful_widget.dart'
     show PaymentSuccessfulWidget;
 export 'pages/user_pages/orders/orders_widget.dart' show OrdersWidget;
-export '/waiter_pages/login_page/login_page_widget.dart' show LoginPageWidget;
-export '/waiter_pages/dashboard/dashboard_widget.dart' show DashboardWidget;
+export 'pages/waiter_pages/login_page/login_page_widget.dart' show LoginPageWidget;
+export 'pages/waiter_pages/dashboard/dashboard_widget.dart' show DashboardWidget;
 export '/splash_screen/splash_screen_widget.dart' show SplashScreenWidget;
