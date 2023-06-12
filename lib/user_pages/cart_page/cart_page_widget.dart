@@ -71,17 +71,18 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                   Expanded(
                     child: Builder(
                       builder: (context) {
-                        final products = FFAppState().orderProducts.toList();
+                        final orderDetail = FFAppState().orderProducts.toList();
                         return ListView.builder(
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
                           scrollDirection: Axis.vertical,
-                          itemCount: products.length,
-                          itemBuilder: (context, productsIndex) {
-                            final productsItem = products[productsIndex];
+                          itemCount: orderDetail.length,
+                          itemBuilder: (context, orderDetailIndex) {
+                            final orderDetailItem =
+                                orderDetail[orderDetailIndex];
                             return Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  13.0, 13.0, 13.0, 13.0),
+                                  13.0, 13.0, 13.0, 0.0),
                               child: Container(
                                 width: MediaQuery.of(context).size.width * 1.0,
                                 height: 100.0,
@@ -115,7 +116,8 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                 borderRadius:
                                                     BorderRadius.circular(12.0),
                                                 child: Image.network(
-                                                  productsItem.product.imageUrl,
+                                                  orderDetailItem
+                                                      .product.imageUrl,
                                                   width: 70.0,
                                                   height: 70.0,
                                                   fit: BoxFit.cover,
@@ -137,7 +139,8 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      productsItem.product.name,
+                                                      orderDetailItem
+                                                          .product.name,
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .titleMedium
@@ -160,7 +163,7 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                                   4.0,
                                                                   8.0),
                                                       child: Text(
-                                                        '${FFAppState().currency}${productsItem.product.price.toString()}',
+                                                        '${FFAppState().currency}${orderDetailItem.product.price.toString()}',
                                                         textAlign:
                                                             TextAlign.end,
                                                         style: FlutterFlowTheme
@@ -194,8 +197,8 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                         children: [
                                           CounterHorizontolWidget(
                                             key: Key(
-                                                'Keybes_${productsIndex}_of_${products.length}'),
-                                            product: productsItem,
+                                                'Keybes_${orderDetailIndex}_of_${orderDetail.length}'),
+                                            product: orderDetailItem,
                                           ),
                                         ],
                                       ),

@@ -23,6 +23,10 @@ Future counterOfProducts(
 
   if (orderDetailStructs.isEmpty) {
     print('orders is empty');
+    print(product.reference);
+    print(product.name);
+    print(product.description);
+    print(product.imageUrl);
     ProductStruct productStruct = ProductStruct(
       productId: product.reference,
       name: product.name,

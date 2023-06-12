@@ -59,7 +59,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      '${FFAppState().cafe.cafeName} Cafe',
+                      '${FFAppState().cafe.cafeName}',
                       textAlign: TextAlign.center,
                       style:
                           FlutterFlowTheme.of(context).headlineMedium.override(
