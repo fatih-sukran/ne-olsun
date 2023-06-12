@@ -1,10 +1,8 @@
 import 'dart:async';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
-import '/flutter_flow/flutter_flow_util.dart';
 
 class CafesRecord extends FirestoreRecord {
   CafesRecord._(
@@ -19,14 +17,8 @@ class CafesRecord extends FirestoreRecord {
   String get name => _name ?? '';
   bool hasName() => _name != null;
 
-  // "categories" field.
-  List<DocumentReference>? _categories;
-  List<DocumentReference> get categories => _categories ?? const [];
-  bool hasCategories() => _categories != null;
-
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
-    _categories = getDataList(snapshotData['categories']);
   }
 
   static CollectionReference get collection =>
@@ -52,6 +44,14 @@ class CafesRecord extends FirestoreRecord {
   @override
   String toString() =>
       'CafesRecord(reference: ${reference.path}, data: $snapshotData)';
+
+  @override
+  int get hashCode => reference.path.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      other is CafesRecord &&
+      reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createCafesRecordData({

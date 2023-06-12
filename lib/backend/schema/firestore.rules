@@ -8,18 +8,78 @@ service cloud.firestore {
       allow delete: if true;
     }
 
-    match /categories/{document} {
+    match /users/{document} {
       allow create: if true;
       allow read: if true;
       allow write: if true;
       allow delete: if true;
     }
 
-    match /products/{document} {
+    match /cafes/{parent}/categories/{document} {
       allow create: if true;
       allow read: if true;
       allow write: if true;
       allow delete: if true;
     }
+
+    match /{path=**}/categories/{document} {
+      allow read: if true;
+    }
+
+
+    match /cafes/{parent}/products/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /{path=**}/products/{document} {
+      allow read: if true;
+    }
+
+
+    match /guest/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /cafes/{parent}/tables/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /{path=**}/tables/{document} {
+      allow read: if true;
+    }
+
+
+    match /cafes/{parent}/orders/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /{path=**}/orders/{document} {
+      allow read: if true;
+    }
+
+
+    match /cafes/{parent}/order_products/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /{path=**}/order_products/{document} {
+      allow read: if true;
+    }
+
   }
 }

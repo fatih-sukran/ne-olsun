@@ -1,10 +1,8 @@
 import 'dart:async';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
-import '/flutter_flow/flutter_flow_util.dart';
 
 class ProductsRecord extends FirestoreRecord {
   ProductsRecord._(
@@ -34,15 +32,28 @@ class ProductsRecord extends FirestoreRecord {
   DocumentReference? get categoryId => _categoryId;
   bool hasCategoryId() => _categoryId != null;
 
+  // "image_url" field.
+  String? _imageUrl;
+  String get imageUrl => _imageUrl ?? '';
+  bool hasImageUrl() => _imageUrl != null;
+
+  DocumentReference get parentReference => reference.parent.parent!;
+
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
     _description = snapshotData['description'] as String?;
     _price = castToType<double>(snapshotData['price']);
     _categoryId = snapshotData['category_id'] as DocumentReference?;
+    _imageUrl = snapshotData['image_url'] as String?;
   }
 
-  static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('products');
+  static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
+      parent != null
+          ? parent.collection('products')
+          : FirebaseFirestore.instance.collectionGroup('products');
+
+  static DocumentReference createDoc(DocumentReference parent) =>
+      parent.collection('products').doc();
 
   static Stream<ProductsRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => ProductsRecord.fromSnapshot(s));
@@ -65,6 +76,14 @@ class ProductsRecord extends FirestoreRecord {
   @override
   String toString() =>
       'ProductsRecord(reference: ${reference.path}, data: $snapshotData)';
+
+  @override
+  int get hashCode => reference.path.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      other is ProductsRecord &&
+      reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createProductsRecordData({
@@ -72,6 +91,7 @@ Map<String, dynamic> createProductsRecordData({
   String? description,
   double? price,
   DocumentReference? categoryId,
+  String? imageUrl,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -79,6 +99,7 @@ Map<String, dynamic> createProductsRecordData({
       'description': description,
       'price': price,
       'category_id': categoryId,
+      'image_url': imageUrl,
     }.withoutNulls,
   );
 
