@@ -1,3 +1,5 @@
+import 'package:ne_olsun/components/loader_box.dart';
+
 import '/backend/backend.dart';
 import '/components/logout_button/logout_button_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -47,40 +49,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-            appBar: AppBar(
-              backgroundColor: FlutterFlowTheme.of(context).primary,
-              automaticallyImplyLeading: true,
-              title: Align(
-                alignment: AlignmentDirectional(0.0, 0.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      '${FFAppState().cafe.cafeName}',
-                      textAlign: TextAlign.center,
-                      style:
-                          FlutterFlowTheme.of(context).headlineMedium.override(
-                                fontFamily: 'Poppins',
-                                color: Colors.white,
-                                fontSize: 22.0,
-                              ),
-                    ),
-                    Flexible(
-                      child: wrapWithModel(
-                        model: _model.logoutButtonModel,
-                        updateCallback: () => setState(() {}),
-                        child: LogoutButtonWidget(),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              actions: [],
-              centerTitle: true,
-              elevation: 2.0,
-            ),
+            appBar: appBar(context),
             body: SafeArea(
               top: true,
               child: FutureBuilder<List<CategoriesRecord>>(
@@ -92,16 +61,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                 builder: (context, snapshot) {
                   // Customize what your widget looks like when it's loading.
                   if (!snapshot.hasData) {
-                    return Center(
-                      child: SizedBox(
-                        width: 50.0,
-                        height: 50.0,
-                        child: SpinKitFadingFour(
-                          color: FlutterFlowTheme.of(context).primary,
-                          size: 50.0,
-                        ),
-                      ),
-                    );
+                    return LoaderBox();
                   }
                   List<CategoriesRecord> listViewCategoriesRecordList =
                       snapshot.data!;
@@ -185,5 +145,42 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
             ),
           ),
         ));
+  }
+
+  AppBar appBar(BuildContext context) {
+    return AppBar(
+            backgroundColor: FlutterFlowTheme.of(context).primary,
+            automaticallyImplyLeading: true,
+            title: Align(
+              alignment: AlignmentDirectional(0.0, 0.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    '${FFAppState().cafe.cafeName}',
+                    textAlign: TextAlign.center,
+                    style:
+                        FlutterFlowTheme.of(context).headlineMedium.override(
+                              fontFamily: 'Poppins',
+                              color: Colors.white,
+                              fontSize: 22.0,
+                            ),
+                  ),
+                  Flexible(
+                    child: wrapWithModel(
+                      model: _model.logoutButtonModel,
+                      updateCallback: () => setState(() {}),
+                      child: LogoutButtonWidget(),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            actions: [],
+            centerTitle: true,
+            elevation: 2.0,
+          );
   }
 }

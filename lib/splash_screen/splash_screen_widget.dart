@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -113,9 +115,9 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget>
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       setDarkModeSetting(context, ThemeMode.light);
-      if (currentUserUid != null && currentUserUid != '') {
+      log('currentUserUid: $currentUserUid');
+      if (currentUserUid.isEmpty) {
         context.goNamed('dashboard');
-
         return;
       } else {
         if (FFAppState().cafe.cafeId != null) {

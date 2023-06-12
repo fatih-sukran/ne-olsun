@@ -75,9 +75,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => appStateNotifier.loggedIn
-              ? DashboardWidget()
-              : SplashScreenWidget(),
+          // builder: (context, _) => appStateNotifier.loggedIn
+          //     ? DashboardWidget()
+          //     : SplashScreenWidget(), TODO: remove comment 
+          builder: (context, _) => DashboardWidget()
         ),
         FFRoute(
           name: 'scan_qr',
