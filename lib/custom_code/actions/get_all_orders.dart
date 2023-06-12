@@ -1,14 +1,4 @@
-// Automatic FlutterFlow imports
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
-import '/actions/actions.dart' as action_blocks;
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import 'index.dart'; // Imports other custom actions
-import '/flutter_flow/custom_functions.dart'; // Imports custom functions
-import 'package:flutter/material.dart';
-// Begin custom action code
-// DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
 Future<List<OrderDetailStruct>> getAllOrders(
     DocumentReference cafesRecord) async {
@@ -27,9 +17,21 @@ Future<List<OrderDetailStruct>> getAllOrders(
               element.product.productId == orderDetailDoc.get('product_id'))
           .toList();
       if (filters.isEmpty) {
+        var productDoc = await FirebaseFirestore.instance
+            .doc((orderDetailDoc.get('product_id') as DocumentReference).path)
+            .get();
+
+        var product = ProductStruct(
+          productId: productDoc.reference,
+          name: productDoc.get('name'),
+          description: productDoc.get('description'),
+          price: productDoc.get('price'),
+          imageUrl: productDoc.get('image_url'),
+        );
+
         var detail = OrderDetailStruct(
           orderDetailId: orderDetailDoc.reference,
-          product: orderDetailDoc.get('product_id'),
+          product: product,
           count: orderDetailDoc.get('count'),
           completedCount: orderDetailDoc.get('completed_count'),
         );
@@ -38,7 +40,7 @@ Future<List<OrderDetailStruct>> getAllOrders(
         continue;
       }
 
-      filters.first.count += int.parse(orderDetailDoc.get('count'));
+      filters.first.count += orderDetailDoc.get('count') as int;
     }
   }
 
