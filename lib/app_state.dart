@@ -62,7 +62,8 @@ class FFAppState extends ChangeNotifier {
     prefs.setString('ff_currency', _value);
   }
 
-  CafeStruct _cafe = CafeStruct();
+  CafeStruct _cafe =
+      CafeStruct.fromSerializableMap(jsonDecode('{\"cafe_id\":\"/a/b\"}'));
   CafeStruct get cafe => _cafe;
   set cafe(CafeStruct _value) {
     _cafe = _value;

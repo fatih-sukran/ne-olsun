@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -13,7 +14,12 @@ import 'dashboard_model.dart';
 export 'dashboard_model.dart';
 
 class DashboardWidget extends StatefulWidget {
-  const DashboardWidget({Key? key}) : super(key: key);
+  const DashboardWidget({
+    Key? key,
+    required this.table,
+  }) : super(key: key);
+
+  final TablesRecord? table;
 
   @override
   _DashboardWidgetState createState() => _DashboardWidgetState();
@@ -974,101 +980,124 @@ class _DashboardWidgetState extends State<DashboardWidget>
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 12.0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12.0, 8.0, 16.0, 4.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          4.0, 12.0, 12.0, 12.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Contract Activity',
-                                            style: FlutterFlowTheme.of(context)
-                                                .titleLarge,
-                                          ).animateOnPageLoad(animationsMap[
-                                              'textOnPageLoadAnimation9']!),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 4.0, 0.0, 0.0),
-                                            child: Text(
-                                              'Below is an a summary of activity.',
+                          child: InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              context.pushNamed(
+                                'table_orders',
+                                queryParameters: {
+                                  'table': serializeParam(
+                                    widget.table,
+                                    ParamType.Document,
+                                  ),
+                                }.withoutNulls,
+                                extra: <String, dynamic>{
+                                  'table': widget.table,
+                                },
+                              );
+                            },
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      12.0, 8.0, 16.0, 4.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            4.0, 12.0, 12.0, 12.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Contract Activity',
                                               style:
                                                   FlutterFlowTheme.of(context)
-                                                      .labelMedium,
+                                                      .titleLarge,
                                             ).animateOnPageLoad(animationsMap[
-                                                'textOnPageLoadAnimation10']!),
-                                          ),
-                                        ],
+                                                'textOnPageLoadAnimation9']!),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 4.0, 0.0, 0.0),
+                                              child: Text(
+                                                'Below is an a summary of activity.',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium,
+                                              ).animateOnPageLoad(animationsMap[
+                                                  'textOnPageLoadAnimation10']!),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    Container(
-                                      width: 60.0,
-                                      height: 60.0,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
+                                      Container(
+                                        width: 60.0,
+                                        height: 60.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                          shape: BoxShape.circle,
+                                        ),
+                                        alignment:
+                                            AlignmentDirectional(0.0, 0.0),
+                                        child: Card(
+                                          clipBehavior:
+                                              Clip.antiAliasWithSaveLayer,
+                                          color: Color(0xFFE0E3E7),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(40.0),
+                                          ),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    12.0, 12.0, 12.0, 12.0),
+                                            child: Icon(
+                                              Icons.folder_open_outlined,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              size: 24.0,
+                                            ),
+                                          ),
+                                        ),
+                                      ).animateOnPageLoad(animationsMap[
+                                          'containerOnPageLoadAnimation7']!),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 0.0, 16.0, 0.0),
+                                  child: LinearPercentIndicator(
+                                    percent: 0.5,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.82,
+                                    lineHeight: 16.0,
+                                    animation: true,
+                                    progressColor:
+                                        FlutterFlowTheme.of(context).primary,
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context)
                                             .primaryBackground,
-                                        shape: BoxShape.circle,
-                                      ),
-                                      alignment: AlignmentDirectional(0.0, 0.0),
-                                      child: Card(
-                                        clipBehavior:
-                                            Clip.antiAliasWithSaveLayer,
-                                        color: Color(0xFFE0E3E7),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(40.0),
-                                        ),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  12.0, 12.0, 12.0, 12.0),
-                                          child: Icon(
-                                            Icons.folder_open_outlined,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                            size: 24.0,
-                                          ),
-                                        ),
-                                      ),
-                                    ).animateOnPageLoad(animationsMap[
-                                        'containerOnPageLoadAnimation7']!),
-                                  ],
+                                    barRadius: Radius.circular(24.0),
+                                    padding: EdgeInsets.zero,
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 0.0, 16.0, 0.0),
-                                child: LinearPercentIndicator(
-                                  percent: 0.5,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.82,
-                                  lineHeight: 16.0,
-                                  animation: true,
-                                  progressColor:
-                                      FlutterFlowTheme.of(context).primary,
-                                  backgroundColor: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
-                                  barRadius: Radius.circular(24.0),
-                                  padding: EdgeInsets.zero,
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ).animateOnPageLoad(

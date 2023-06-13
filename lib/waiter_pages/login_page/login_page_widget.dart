@@ -1,4 +1,3 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -327,49 +326,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                       textStyle: FlutterFlowTheme.of(context)
                                           .titleSmall,
                                       elevation: 0.0,
-                                      borderSide: BorderSide(
-                                        color: Colors.transparent,
-                                        width: 1.0,
-                                      ),
-                                    ),
-                                  ),
-                                  FFButtonWidget(
-                                    onPressed: () async {
-                                      GoRouter.of(context).prepareAuthEvent();
-
-                                      final user =
-                                          await authManager.signInWithEmail(
-                                        context,
-                                        _model.emailAddressController.text,
-                                        _model.passwordController.text,
-                                      );
-                                      if (user == null) {
-                                        return;
-                                      }
-
-                                      context.goNamedAuth(
-                                          'dashboard', context.mounted);
-                                    },
-                                    text: 'Login',
-                                    options: FFButtonOptions(
-                                      width: 130.0,
-                                      height: 50.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 0.0),
-                                      iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              0.0, 0.0, 0.0, 0.0),
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            color: Colors.white,
-                                            fontSize: 18.0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                      elevation: 2.0,
                                       borderSide: BorderSide(
                                         color: Colors.transparent,
                                         width: 1.0,

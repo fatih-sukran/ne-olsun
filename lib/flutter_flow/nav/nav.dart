@@ -76,13 +76,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? DashboardWidget() : SplashScreenWidget(),
+          appStateNotifier.loggedIn ? LoginPageWidget() : SplashScreenWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) => appStateNotifier.loggedIn
-              ? DashboardWidget()
+              ? LoginPageWidget()
               : SplashScreenWidget(),
         ),
         FFRoute(
@@ -135,7 +135,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'dashboard',
           path: '/dashboard',
           requireAuth: true,
-          builder: (context, params) => DashboardWidget(),
+          asyncParams: {
+            'table': getDoc(['cafes', 'tables'], TablesRecord.fromSnapshot),
+          },
+          builder: (context, params) => DashboardWidget(
+            table: params.getParam('table', ParamType.Document),
+          ),
         ),
         FFRoute(
           name: 'splash_screen',

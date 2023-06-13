@@ -116,30 +116,28 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget>
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       setDarkModeSetting(context, ThemeMode.light);
       if (currentUserUid != null && currentUserUid != '') {
-        context.goNamed('dashboard');
+        return;
+      }
+
+      if (FFAppState().cafe.cafeId != null) {
+        if (FFAppState()
+                .cafe
+                .table
+                .orders
+                .where((e) => e.status == 0)
+                .toList()
+                .length >=
+            1) {
+          context.goNamed('categories');
+        } else {
+          context.goNamed('orders');
+        }
 
         return;
       } else {
-        if (FFAppState().cafe.cafeId != null) {
-          if (FFAppState()
-                  .cafe
-                  .table
-                  .orders
-                  .where((e) => e.status == 0)
-                  .toList()
-                  .length >=
-              1) {
-            context.goNamed('categories');
-          } else {
-            context.goNamed('orders');
-          }
+        context.goNamed('scan_qr');
 
-          return;
-        } else {
-          context.goNamed('scan_qr');
-
-          return;
-        }
+        return;
       }
     });
 
