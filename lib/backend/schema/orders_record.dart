@@ -1,8 +1,6 @@
 import 'dart:async';
 
-import '/backend/schema/util/firestore_util.dart';
-
-import 'index.dart';
+import 'package:ne_olsun/backend/backend.dart';
 
 class OrdersRecord extends FirestoreRecord {
   OrdersRecord._(
@@ -12,15 +10,25 @@ class OrdersRecord extends FirestoreRecord {
     _initializeFields();
   }
 
-  // "guest_id" field.
-  DocumentReference? _guestId;
-  DocumentReference? get guestId => _guestId;
-  bool hasGuestId() => _guestId != null;
+  static String _collectionName = 'orders';
 
-  // "table_id" field.
-  DocumentReference? _tableId;
-  DocumentReference? get tableId => _tableId;
-  bool hasTableId() => _tableId != null;
+  ProductsRecord? _product;
+  ProductsRecord get product => _product!;
+
+  // "product_id" field.
+  DocumentReference? _productId;
+  DocumentReference? get productId => _productId;
+  bool hasProductId() => _productId != null;
+
+  // "count" field.
+  int? _count;
+  int get count => _count ?? 0;
+  bool hasCount() => _count != null;
+
+  // "completed_count" field.
+  int? _completedCount;
+  int get completedCount => _completedCount ?? 0;
+  bool hasCompletedCount() => _completedCount != null;
 
   // "note" field.
   String? _note;
@@ -32,22 +40,57 @@ class OrdersRecord extends FirestoreRecord {
   int get status => _status ?? 0;
   bool hasStatus() => _status != null;
 
+  DateTime? _createdDate;
+  DateTime? get createdDate => _createdDate;
+  bool hasCreatedDate() => _createdDate != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
-    _guestId = snapshotData['guest_id'] as DocumentReference?;
-    _tableId = snapshotData['table_id'] as DocumentReference?;
+    _count = snapshotData['count'] as int?;
+    _completedCount = snapshotData['completed_count'] as int?;
     _note = snapshotData['note'] as String?;
     _status = snapshotData['status'] as int?;
+    _createdDate = snapshotData['created_date'] as DateTime?;
+  }
+
+  Future _initializeFieldsAsync() async {
+    var productRef = snapshotData['product_id'] as DocumentReference;
+    _product = await ProductsRecord.getDocumentOnce(productRef);
+  }
+
+  void update({
+    ProductsRecord? product,
+    int? count,
+    int? completedCount,
+    String? note,
+    int? status,
+    DateTime? createdDate,
+  }) async {
+    _product = product ?? _product;
+    _count = count ?? _count;
+    _completedCount = completedCount ?? _completedCount;
+    _note = note ?? _note;
+    _status = status ?? _status;
+    _createdDate = createdDate ?? _createdDate;
+
+    var map = <String, dynamic>{
+      'count': count,
+      'completed_count': completedCount,
+      'note': note,
+      'status': status,
+      'created_date': createdDate
+    }.withoutNulls;
+    await reference.update(map);
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
       parent != null
-          ? parent.collection('orders')
-          : FirebaseFirestore.instance.collectionGroup('orders');
+          ? parent.collection(_collectionName)
+          : FirebaseFirestore.instance.collectionGroup(_collectionName);
 
   static DocumentReference createDoc(DocumentReference parent) =>
-      parent.collection('orders').doc();
+      parent.collection(_collectionName).doc();
 
   static Stream<OrdersRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => OrdersRecord.fromSnapshot(s));
@@ -66,6 +109,39 @@ class OrdersRecord extends FirestoreRecord {
   ) =>
       OrdersRecord._(reference, mapFromFirestore(data));
 
+  static Future<OrdersRecord> fromFirebase(
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) async {
+    var order = OrdersRecord._(reference, mapFromFirestore(data));
+    await order._initializeFieldsAsync();
+    return order;
+  }
+
+  static Future<OrdersRecord?> createOrder({
+    required DocumentReference parent,
+    DocumentReference? productId,
+    int? count,
+    int? completedCount,
+    String? note,
+    int? status,
+    DateTime? createdDate,
+  }) async {
+    var map = createOrdersRecordData(
+      productId: productId,
+      count: count,
+      completedCount: completedCount,
+      note: note,
+      status: status,
+      createdDate: createdDate,
+    );
+
+    var doc = createDoc(parent);
+    doc.set(map);
+
+    return await fromFirebase(map, doc);
+  }
+
   @override
   String toString() =>
       'OrdersRecord(reference: ${reference.path}, data: $snapshotData)';
@@ -80,17 +156,20 @@ class OrdersRecord extends FirestoreRecord {
 }
 
 Map<String, dynamic> createOrdersRecordData({
-  DocumentReference? guestId,
-  DocumentReference? tableId,
+  DocumentReference? productId,
+  int? count,
+  int? completedCount,
   String? note,
   int? status,
+  DateTime? createdDate,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
-      'guest_id': guestId,
-      'table_id': tableId,
+      'count': count,
+      'completed_count': completedCount,
       'note': note,
       'status': status,
+      'created_date': createdDate
     }.withoutNulls,
   );
 

@@ -4,8 +4,8 @@ import '/flutter_flow/flutter_flow_util.dart';
 Future createOrder(String? note) async {
 
   final ordersCreateData = createOrdersRecordData(
-    guestId: null,
-    tableId: FFAppState().cafe.table.tableId,
+    // guestId: null,
+    // tableId: FFAppState().cafe.table.tableId,
     note: note ?? '',
     status: 0,
   );

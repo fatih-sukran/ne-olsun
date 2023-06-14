@@ -54,7 +54,7 @@ class _LogoutButtonWidgetState extends State<LogoutButtonWidget> {
         buttonSize: 40.0,
         fillColor: FlutterFlowTheme.of(context).primary,
         icon: FaIcon(
-          FontAwesomeIcons.signOutAlt,
+          FontAwesomeIcons.rightFromBracket,
           color: FlutterFlowTheme.of(context).secondary,
           size: 24.0,
         ),

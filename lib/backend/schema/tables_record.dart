@@ -1,8 +1,6 @@
 import 'dart:async';
 
-import '/backend/schema/util/firestore_util.dart';
-
-import 'index.dart';
+import 'package:ne_olsun/backend/backend.dart';
 
 class TablesRecord extends FirestoreRecord {
   TablesRecord._(
@@ -22,11 +20,16 @@ class TablesRecord extends FirestoreRecord {
   int get status => _status ?? 0;
   bool hasStatus() => _status != null;
 
+  // List<OrdersRecord> _orders = [];
+  // List<OrdersRecord> get orders => _orders;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
     _status = snapshotData['status'] as int?;
+    // _orders =
+    //     snapshotData['orders'] as List<OrdersRecord>; //! todo: hata çıkabilir.
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -53,6 +56,22 @@ class TablesRecord extends FirestoreRecord {
     DocumentReference reference,
   ) =>
       TablesRecord._(reference, mapFromFirestore(data));
+
+  static Future<List<TablesRecord>> getAllTables() {
+    return FirebaseFirestore.instance
+        .collection('cafes')
+        .doc('PQ9L320aVDYlOOmKt2Jk') //! parametrik alınacak
+        .collection('tables')
+        .get()
+        .then((value) {
+      var tables = <TablesRecord>[];
+      for (var document in value.docs) {
+        var record = TablesRecord.fromSnapshot(document);
+        tables.add(record);
+      }
+      return tables;
+    });
+  }
 
   @override
   String toString() =>

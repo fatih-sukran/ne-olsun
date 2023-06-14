@@ -1,3 +1,5 @@
+import 'package:ne_olsun/backend/schema/structs/order_wrapper.dart';
+
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -6,18 +8,16 @@ import 'package:flutter/material.dart';
 class OrdersModel extends FlutterFlowModel {
   ///  Local state fields for this page.
 
-  List<OrderDetailStruct> orders = [];
-  void addToOrders(OrderDetailStruct item) => orders.add(item);
-  void removeFromOrders(OrderDetailStruct item) => orders.remove(item);
-  void removeAtIndexFromOrders(int index) => orders.removeAt(index);
-  void updateOrdersAtIndex(int index, Function(OrderDetailStruct) updateFn) =>
-      orders[index] = updateFn(orders[index]);
+  List<OrderWrapper> orderWrappers = [];
+  void addToOrders(OrderWrapper item) => orderWrappers.add(item);
+  void removeFromOrders(OrderWrapper item) => orderWrappers.remove(item);
+  void removeAtIndexFromOrders(int index) => orderWrappers.removeAt(index);
+  void updateOrdersAtIndex(int index, Function(OrderWrapper) updateFn) =>
+      orderWrappers[index] = updateFn(orderWrappers[index]);
 
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // Stores action output result for [Custom Action - getAllOrders] action in orders widget.
-  List<OrderDetailStruct>? allOrderDetails;
 
   /// Initialization and disposal methods.
 
@@ -30,5 +30,4 @@ class OrdersModel extends FlutterFlowModel {
   /// Action blocks are added here.
 
   /// Additional helper methods are added here.
-
 }

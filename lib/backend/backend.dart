@@ -476,6 +476,7 @@ Future<int> queryCollectionCount(
     query = query.limit(limit);
   }
 
+  // ignore: body_might_complete_normally_catch_error
   return query.count().get().catchError((err) {
     print('Error querying $collection: $err');
   }).then((value) => value.count);

@@ -116,8 +116,9 @@ class _DashboardWidgetState extends State<DashboardWidget>
                           animation: true,
                           progressColor: Colors.white,
                           backgroundColor: Color(0x4CFFFFFF),
-                        ).animateOnPageLoad(
-                            animationsMap['progressBarOnPageLoadAnimation1']!),
+                        ),
+                        // .animateOnPageLoad(
+                        //     animationsMap['progressBarOnPageLoadAnimation1']!),
                         CircularPercentIndicator(
                           percent: 0.3,
                           radius: 50.0,
@@ -125,8 +126,9 @@ class _DashboardWidgetState extends State<DashboardWidget>
                           animation: true,
                           progressColor: Colors.white,
                           backgroundColor: Color(0x4CFFFFFF),
-                        ).animateOnPageLoad(
-                            animationsMap['progressBarOnPageLoadAnimation2']!),
+                        ),
+                        // .animateOnPageLoad(
+                        //     animationsMap['progressBarOnPageLoadAnimation2']!),
                       ],
                     ),
                   ],
@@ -136,7 +138,8 @@ class _DashboardWidgetState extends State<DashboardWidget>
                 height: 24.0,
                 thickness: 1.0,
                 color: Color(0xFF6AA3B8),
-              ).animateOnPageLoad(animationsMap['dividerOnPageLoadAnimation']!),
+              ),
+              // .animateOnPageLoad(animationsMap['dividerOnPageLoadAnimation']!),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
                 child: Text(
@@ -146,7 +149,8 @@ class _DashboardWidgetState extends State<DashboardWidget>
                         color: Colors.white,
                         fontSize: 20.0,
                       ),
-                ).animateOnPageLoad(animationsMap['textOnPageLoadAnimation7']!),
+                ),
+                // .animateOnPageLoad(animationsMap['textOnPageLoadAnimation7']!),
               ),
               Text(
                 '4 Members',
@@ -154,11 +158,13 @@ class _DashboardWidgetState extends State<DashboardWidget>
                       fontFamily: 'Poppins',
                       color: Color(0x9AFFFFFF),
                     ),
-              ).animateOnPageLoad(animationsMap['textOnPageLoadAnimation8']!),
+              ),
+              // .animateOnPageLoad(animationsMap['textOnPageLoadAnimation8']!),
             ],
           ),
         ),
-      ).animateOnPageLoad(animationsMap['containerOnPageLoadAnimation5']!),
+      ),
+      // .animateOnPageLoad(animationsMap['containerOnPageLoadAnimation5']!),
     );
   }
 
@@ -169,7 +175,8 @@ class _DashboardWidgetState extends State<DashboardWidget>
         'Tables',
         textAlign: TextAlign.start,
         style: FlutterFlowTheme.of(context).titleLarge,
-      ).animateOnPageLoad(animationsMap['textOnPageLoadAnimation6']!),
+      ),
+      // .animateOnPageLoad(animationsMap['textOnPageLoadAnimation6']!),
     );
   }
 
@@ -193,7 +200,8 @@ class _DashboardWidgetState extends State<DashboardWidget>
                       fontFamily: 'Poppins',
                       color: Color(0xB3FFFFFF),
                     ),
-              ).animateOnPageLoad(animationsMap['textOnPageLoadAnimation1']!),
+              ),
+              // .animateOnPageLoad(animationsMap['textOnPageLoadAnimation1']!),
             ),
           ),
           Padding(
@@ -254,8 +262,9 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                 ),
                               ),
                             ),
-                          ).animateOnPageLoad(
-                              animationsMap['containerOnPageLoadAnimation2']!),
+                          ),
+                          // .animateOnPageLoad(
+                              // animationsMap['containerOnPageLoadAnimation2']!),
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 12.0, 12.0, 12.0, 12.0),
@@ -268,8 +277,9 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                   'New Customers',
                                   style:
                                       FlutterFlowTheme.of(context).labelMedium,
-                                ).animateOnPageLoad(
-                                    animationsMap['textOnPageLoadAnimation2']!),
+                                ),
+                                // .animateOnPageLoad(
+                                    // animationsMap['textOnPageLoadAnimation2']!),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 8.0, 0.0, 0.0),
@@ -277,8 +287,9 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                     '24',
                                     style: FlutterFlowTheme.of(context)
                                         .displaySmall,
-                                  ).animateOnPageLoad(animationsMap[
-                                      'textOnPageLoadAnimation3']!),
+                                  ),
+                                  // .animateOnPageLoad(animationsMap[
+                                      // 'textOnPageLoadAnimation3']!),
                                 ),
                               ],
                             ),
@@ -286,8 +297,9 @@ class _DashboardWidgetState extends State<DashboardWidget>
                         ],
                       ),
                     ),
-                  ).animateOnPageLoad(
-                      animationsMap['containerOnPageLoadAnimation1']!),
+                  ),
+                  // .animateOnPageLoad(
+                      // animationsMap['containerOnPageLoadAnimation1']!),
                 ),
                 Padding(
                   padding:
@@ -354,8 +366,9 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                 ),
                               ),
                             ),
-                          ).animateOnPageLoad(
-                              animationsMap['containerOnPageLoadAnimation4']!),
+                          ),
+                          // .animateOnPageLoad(
+                          //     animationsMap['containerOnPageLoadAnimation4']!),
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 12.0, 12.0, 12.0, 12.0),
@@ -368,8 +381,9 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                   'New Contracts',
                                   style:
                                       FlutterFlowTheme.of(context).labelMedium,
-                                ).animateOnPageLoad(
-                                    animationsMap['textOnPageLoadAnimation4']!),
+                                ),
+                                // .animateOnPageLoad(
+                                //     animationsMap['textOnPageLoadAnimation4']!),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 8.0, 0.0, 0.0),
@@ -377,8 +391,9 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                     '3,200',
                                     style: FlutterFlowTheme.of(context)
                                         .displaySmall,
-                                  ).animateOnPageLoad(animationsMap[
-                                      'textOnPageLoadAnimation5']!),
+                                  ),
+                                  // .animateOnPageLoad(animationsMap[
+                                      // 'textOnPageLoadAnimation5']!),
                                 ),
                               ],
                             ),
@@ -386,8 +401,9 @@ class _DashboardWidgetState extends State<DashboardWidget>
                         ],
                       ),
                     ),
-                  ).animateOnPageLoad(
-                      animationsMap['containerOnPageLoadAnimation3']!),
+                  ),
+                  // .animateOnPageLoad(
+                      // animationsMap['containerOnPageLoadAnimation3']!),
                 ),
               ],
             ),
@@ -406,8 +422,8 @@ class _DashboardWidgetState extends State<DashboardWidget>
         style: FlutterFlowTheme.of(context).displaySmall.override(
               fontFamily: 'Poppins',
               color: Colors.white,
-            ),
-      ).animateOnPageLoad(animationsMap['textOnPageLoadAnimation13']!),
+            ),),
+      // ).animateOnPageLoad(animationsMap['textOnPageLoadAnimation13']!),
       actions: [],
       centerTitle: false,
       elevation: 0.0,
@@ -419,20 +435,33 @@ class _DashboardWidgetState extends State<DashboardWidget>
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 21.0),
         child: FutureBuilder<List<TablesRecord>>(
-          future: queryTablesRecordOnce(
-            parent: FFAppState().cafe.cafeId,
-          ),
+          future: TablesRecord.getAllTables(),
           builder: (_, snapshot) {
-            if (!snapshot.hasData) {
-              return LoaderBox();
-            }
-
+            if (snapshot.connectionState == ConnectionState.waiting) {
+      // Show a progress indicator while loading
+      return LoaderBox();
+    } else if (snapshot.hasError) {
+      return Text('Error: ${snapshot.error}');
+    } 
+            List<TablesRecord> tables = snapshot.data!;
             return ListView.builder(
-              itemCount: snapshot.data!.length + 1,
-              // shrinkWrap: true,
+              itemCount: tables.length + 1,
               itemBuilder: (context, index) {
                 if (index == 0) return chart(context);
-                return TableItem(title: snapshot.data![index - 1].name);
+                var table = tables[index - 1];
+                return TableItem(
+                  title: table.name,
+                  onTap: () => context.pushNamed(
+                    'table_orders',
+                    queryParameters: {
+                      'table':
+                          serializeParam(table, ParamType.Document)
+                    }.withoutNulls,
+                    extra: <String, dynamic>{
+                      'table': table,
+                    },
+                  ),
+                );
               },
             );
           },

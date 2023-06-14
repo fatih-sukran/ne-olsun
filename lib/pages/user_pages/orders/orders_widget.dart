@@ -28,13 +28,11 @@ class _OrdersWidgetState extends State<OrdersWidget> {
     _model = createModel(context, () => OrdersModel());
 
     // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.allOrderDetails = await actions.getAllOrders(
-        FFAppState().cafe.cafeId!,
-      );
-      setState(() {
-        _model.orders =
-            _model.allOrderDetails!.toList().cast<OrderDetailStruct>();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      setState(() async {
+        _model.orderWrappers = await actions.getAllOrders(
+          tableRef: FFAppState().cafe.table.tableId!,
+        );
       });
     });
 
@@ -87,7 +85,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                     Expanded(
                       child: Builder(
                         builder: (context) {
-                          final orderDetails = _model.orders.toList();
+                          final orderDetails = _model.orderWrappers.toList();
                           return ListView.builder(
                             padding: EdgeInsets.zero,
                             shrinkWrap: true,
@@ -144,7 +142,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  orderDetailsItem.product.name,
+                                                  orderDetailsItem.name,
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -214,7 +212,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                                                                   0.0,
                                                                   0.0),
                                                       child: Text(
-                                                        '${FFAppState().currency}${orderDetailsItem.product.price.toString()}',
+                                                        '${FFAppState().currency}${orderDetailsItem.price}',
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)

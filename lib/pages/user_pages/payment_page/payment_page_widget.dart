@@ -253,8 +253,8 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget>
                           highlightColor: Colors.transparent,
                           onDoubleTap: () async {
                             final ordersCreateData = createOrdersRecordData(
-                              guestId: null,
-                              tableId: FFAppState().cafe.table.tableId,
+                              // guestId: null,
+                              // tableId: FFAppState().cafe.table.tableId, //! todo: order create
                               note: 'Zeytin tuzlu olsun',
                               status: 0,
                             );

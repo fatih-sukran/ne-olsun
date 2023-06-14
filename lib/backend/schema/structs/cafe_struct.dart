@@ -2,7 +2,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -17,6 +16,23 @@ class CafeStruct extends FFFirebaseStruct {
         _cafeName = cafeName,
         _table = table,
         super(firestoreUtilData);
+
+  static Future<CafeStruct> fromFirebase() async {
+    if (_instance == null) {
+      DocumentSnapshot cafeDoc = await FirebaseFirestore.instance
+          .collection('cafes')
+          .doc('PQ9L320aVDYlOOmKt2Jk') //! parametrik alınacak
+          .get();
+
+      _instance = CafeStruct(
+        cafeId: cafeDoc.reference,
+        cafeName: cafeDoc.get('name'),
+      );
+    }
+    return _instance!;
+  }
+
+  static CafeStruct? _instance;
 
   // "cafe_id" field.
   DocumentReference? _cafeId;

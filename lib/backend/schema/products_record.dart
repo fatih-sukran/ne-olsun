@@ -27,11 +27,6 @@ class ProductsRecord extends FirestoreRecord {
   double get price => _price ?? 0.0;
   bool hasPrice() => _price != null;
 
-  // "category_id" field.
-  DocumentReference? _categoryId;
-  DocumentReference? get categoryId => _categoryId;
-  bool hasCategoryId() => _categoryId != null;
-
   // "image_url" field.
   String? _imageUrl;
   String get imageUrl => _imageUrl ?? '';
@@ -43,7 +38,6 @@ class ProductsRecord extends FirestoreRecord {
     _name = snapshotData['name'] as String?;
     _description = snapshotData['description'] as String?;
     _price = castToType<double>(snapshotData['price']);
-    _categoryId = snapshotData['category_id'] as DocumentReference?;
     _imageUrl = snapshotData['image_url'] as String?;
   }
 
@@ -98,7 +92,6 @@ Map<String, dynamic> createProductsRecordData({
       'name': name,
       'description': description,
       'price': price,
-      'category_id': categoryId,
       'image_url': imageUrl,
     }.withoutNulls,
   );

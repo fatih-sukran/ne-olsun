@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ne_olsun/main.dart';
+import 'package:ne_olsun/pages/waiter_pages/table_orders/table_orders_widget.dart';
 import 'package:page_transition/page_transition.dart';
 import '/backend/backend.dart';
 
@@ -75,10 +77,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: '_initialize',
           path: '/',
-          // builder: (context, _) => appStateNotifier.loggedIn
-          //     ? DashboardWidget()
-          //     : SplashScreenWidget(), TODO: remove comment 
-          builder: (context, _) => DashboardWidget()
+          builder: (context, _) => appStateNotifier.loggedIn
+              ? NavBarPage(initialPage: 'dashboard',)
+              : SplashScreenWidget(), 
+          // builder: (context, _) => ScanQrWidget()
         ),
         FFRoute(
           name: 'scan_qr',
@@ -136,6 +138,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'splash_screen',
           path: '/splash_screen',
           builder: (context, params) => SplashScreenWidget(),
+        ),
+        FFRoute(
+          name: 'table_orders',
+          path: '/table_orders',
+          // requireAuth: true, todo: remove comment
+          asyncParams: {
+            'table': getDoc(['cafes', 'tables'], TablesRecord.fromSnapshot),
+          },
+          builder: (context, params) => TableOrdersWidget(
+            table: params.getParam('table', ParamType.Document),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

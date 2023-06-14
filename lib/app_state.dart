@@ -17,15 +17,16 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _currency = prefs.getString('ff_currency') ?? _currency;
     });
-    _safeInit(() {
-      if (prefs.containsKey('ff_cafe')) {
+    _safeInit(() async {
+      // if (prefs.containsKey('ff_cafe')) {
         try {
-          final serializedData = prefs.getString('ff_cafe') ?? '{}';
-          _cafe = CafeStruct.fromSerializableMap(jsonDecode(serializedData));
+          // final serializedData = prefs.getString('ff_cafe') ?? '{}';
+          // _cafe = CafeStruct.fromSerializableMap(jsonDecode(serializedData));
+          _cafe = await CafeStruct.fromFirebase();
         } catch (e) {
           print("Can't decode persisted data type. Error: $e.");
         }
-      }
+      // }
     });
     _safeInit(() {
       _orderProducts = prefs
@@ -116,6 +117,7 @@ class FFAppState extends ChangeNotifier {
   }
 }
 
+// ignore: unused_element
 LatLng? _latLngFromString(String? val) {
   if (val == null) {
     return null;
@@ -132,6 +134,7 @@ void _safeInit(Function() initializeField) {
   } catch (_) {}
 }
 
+// ignore: unused_element
 Future _safeInitAsync(Function() initializeField) async {
   try {
     await initializeField();
