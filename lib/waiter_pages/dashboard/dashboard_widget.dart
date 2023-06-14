@@ -1,11 +1,8 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/edit_order_bottom_sheet/edit_order_bottom_sheet_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/form_field_controller.dart';
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -602,23 +599,33 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                           ),
                                           alignment:
                                               AlignmentDirectional(0.0, 0.0),
-                                          child: Card(
-                                            clipBehavior:
-                                                Clip.antiAliasWithSaveLayer,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(40.0),
-                                            ),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      12.0, 12.0, 12.0, 12.0),
-                                              child: Icon(
-                                                Icons.group_outlined,
-                                                color: Colors.white,
-                                                size: 24.0,
+                                          child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              context.goNamed('scan_qr');
+                                            },
+                                            child: Card(
+                                              clipBehavior:
+                                                  Clip.antiAliasWithSaveLayer,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(40.0),
+                                              ),
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        12.0, 12.0, 12.0, 12.0),
+                                                child: Icon(
+                                                  Icons.group_outlined,
+                                                  color: Colors.white,
+                                                  size: 24.0,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -707,14 +714,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                             hoverColor: Colors.transparent,
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
-                                              GoRouter.of(context)
-                                                  .prepareAuthEvent();
-                                              await authManager.signOut();
-                                              GoRouter.of(context)
-                                                  .clearRedirectLocation();
-
-                                              context.goNamedAuth(
-                                                  'dashboard', context.mounted);
+                                              context.pushNamed('scan_qr');
                                             },
                                             child: Card(
                                               clipBehavior:
@@ -1043,34 +1043,6 @@ class _DashboardWidgetState extends State<DashboardWidget>
                       ),
                     ).animateOnPageLoad(
                         animationsMap['containerOnPageLoadAnimation6']!),
-                  ),
-                  FlutterFlowDropDown<String>(
-                    controller: _model.dropDownValueController ??=
-                        FormFieldController<String>(
-                      _model.dropDownValue ??= '',
-                    ),
-                    options: ['0', '1', '2'],
-                    optionLabels: ['', '', ''],
-                    onChanged: (val) =>
-                        setState(() => _model.dropDownValue = val),
-                    width: 300.0,
-                    height: 50.0,
-                    textStyle: FlutterFlowTheme.of(context).bodyMedium,
-                    hintText: 'Please select...',
-                    icon: Icon(
-                      Icons.keyboard_arrow_down_rounded,
-                      color: FlutterFlowTheme.of(context).secondaryText,
-                      size: 24.0,
-                    ),
-                    fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                    elevation: 2.0,
-                    borderColor: FlutterFlowTheme.of(context).alternate,
-                    borderWidth: 2.0,
-                    borderRadius: 8.0,
-                    margin:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 4.0),
-                    hidesUnderline: true,
-                    isSearchable: false,
                   ),
                 ],
               ),

@@ -31,13 +31,13 @@ dependencies:
   cloud_firestore: 4.2.0
   cloud_firestore_platform_interface: 5.9.1
   cloud_firestore_web: 3.1.1
-  dropdown_button2: 2.0.0
   firebase_auth: 4.2.0
   firebase_auth_platform_interface: 6.11.4
   firebase_auth_web: 5.2.0
   firebase_core: 2.4.0
   firebase_core_platform_interface: 4.5.2
   firebase_core_web: 2.0.2
+  floating_bottom_navigation_bar: 1.5.2
   flutter_animate: 4.1.1+1
   flutter_cache_manager: 3.3.0
   flutter_credit_card: 3.0.6
@@ -85,9 +85,18 @@ dependencies:
   cupertino_icons: ^1.0.0
 
 dev_dependencies:
+  flutter_launcher_icons: 0.12.0
 
   flutter_test:
     sdk: flutter
+
+
+flutter_icons:
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  image_path: 'assets/images/app_launcher_icon.png'
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

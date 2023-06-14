@@ -76,13 +76,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? OrdersWidget() : DashboardWidget(),
+          appStateNotifier.loggedIn ? NavBarPage() : DashboardWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? OrdersWidget() : DashboardWidget(),
+              appStateNotifier.loggedIn ? NavBarPage() : DashboardWidget(),
         ),
         FFRoute(
           name: 'scan_qr',
@@ -97,7 +97,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'categories',
           path: '/menu_page',
-          builder: (context, params) => CategoriesWidget(),
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'categories')
+              : CategoriesWidget(),
         ),
         FFRoute(
           name: 'category_detail',
@@ -123,7 +125,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'orders',
           path: '/orders',
-          builder: (context, params) => OrdersWidget(),
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'orders')
+              : OrdersWidget(),
         ),
         FFRoute(
           name: 'login_page',
@@ -136,9 +140,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           asyncParams: {
             'table': getDoc(['cafes', 'tables'], TablesRecord.fromSnapshot),
           },
-          builder: (context, params) => DashboardWidget(
-            table: params.getParam('table', ParamType.Document),
-          ),
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'dashboard')
+              : DashboardWidget(
+                  table: params.getParam('table', ParamType.Document),
+                ),
         ),
         FFRoute(
           name: 'splash_screen',
@@ -154,6 +160,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => TableOrdersWidget(
             table: params.getParam('table', ParamType.Document),
           ),
+        ),
+        FFRoute(
+          name: 'Settings',
+          path: '/settings',
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'Settings')
+              : SettingsWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -334,10 +347,10 @@ class FFRoute {
               : builder(context, ffParams);
           final child = appStateNotifier.loading
               ? Container(
-                  color: Colors.transparent,
+                  color: FlutterFlowTheme.of(context).accent2,
                   child: Image.asset(
                     'assets/images/Rectangle_3.png',
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fitWidth,
                   ),
                 )
               : page;

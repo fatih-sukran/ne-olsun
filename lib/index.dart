@@ -14,3 +14,4 @@ export '/waiter_pages/dashboard/dashboard_widget.dart' show DashboardWidget;
 export '/splash_screen/splash_screen_widget.dart' show SplashScreenWidget;
 export '/waiter_pages/table_orders/table_orders_widget.dart'
     show TableOrdersWidget;
+export '/settings/settings_widget.dart' show SettingsWidget;
