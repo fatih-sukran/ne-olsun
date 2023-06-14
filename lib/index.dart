@@ -12,4 +12,5 @@ export '/user_pages/orders/orders_widget.dart' show OrdersWidget;
 export '/waiter_pages/login_page/login_page_widget.dart' show LoginPageWidget;
 export '/waiter_pages/dashboard/dashboard_widget.dart' show DashboardWidget;
 export '/splash_screen/splash_screen_widget.dart' show SplashScreenWidget;
-export '/table_orders/table_orders_widget.dart' show TableOrdersWidget;
+export '/waiter_pages/table_orders/table_orders_widget.dart'
+    show TableOrdersWidget;

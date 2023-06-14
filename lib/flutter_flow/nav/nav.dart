@@ -76,14 +76,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? LoginPageWidget() : SplashScreenWidget(),
+          appStateNotifier.loggedIn ? OrdersWidget() : DashboardWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => appStateNotifier.loggedIn
-              ? LoginPageWidget()
-              : SplashScreenWidget(),
+          builder: (context, _) =>
+              appStateNotifier.loggedIn ? OrdersWidget() : DashboardWidget(),
         ),
         FFRoute(
           name: 'scan_qr',
@@ -134,7 +133,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'dashboard',
           path: '/dashboard',
-          requireAuth: true,
           asyncParams: {
             'table': getDoc(['cafes', 'tables'], TablesRecord.fromSnapshot),
           },
@@ -150,7 +148,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'table_orders',
           path: '/table_orders',
-          requireAuth: true,
           asyncParams: {
             'table': getDoc(['cafes', 'tables'], TablesRecord.fromSnapshot),
           },
@@ -323,7 +320,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.location);
-            return '/splash_screen';
+            return '/dashboard';
           }
           return null;
         },
