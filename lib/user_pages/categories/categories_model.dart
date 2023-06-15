@@ -1,3 +1,4 @@
+import '/auth/base_auth_user_provider.dart';
 import '/backend/backend.dart';
 import '/components/logout_button/logout_button_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';

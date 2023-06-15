@@ -1,3 +1,4 @@
+import '/auth/base_auth_user_provider.dart';
 import '/backend/backend.dart';
 import '/components/logout_button/logout_button_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -145,14 +146,25 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                             ),
                             child: Stack(
                               children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(13.0),
-                                  child: Image.asset(
-                                    'assets/images/Rectangle_3.png',
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                    fit: BoxFit.cover,
-                                  ),
+                                Stack(
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(13.0),
+                                      child: Image.asset(
+                                        'assets/images/Rectangle_3.png',
+                                        width: double.infinity,
+                                        height: double.infinity,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Container(
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                      decoration: BoxDecoration(
+                                        color: Color(0x54101213),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 Column(
                                   mainAxisSize: MainAxisSize.max,
@@ -174,6 +186,64 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                                     ),
                                   ],
                                 ),
+                                if (loggedIn)
+                                  Align(
+                                    alignment: AlignmentDirectional(1.0, -1.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  8.0, 8.0, 8.0, 8.0),
+                                          child: Container(
+                                            width: 50.0,
+                                            height: 50.0,
+                                            decoration: BoxDecoration(
+                                              color: Color(0xFF4584FF),
+                                              borderRadius:
+                                                  BorderRadius.circular(21.0),
+                                              shape: BoxShape.rectangle,
+                                            ),
+                                            child: Icon(
+                                              Icons.edit,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              size: 21.0,
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  8.0, 8.0, 8.0, 8.0),
+                                          child: Container(
+                                            width: 50.0,
+                                            height: 50.0,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              borderRadius:
+                                                  BorderRadius.circular(21.0),
+                                              shape: BoxShape.rectangle,
+                                            ),
+                                            child: Icon(
+                                              Icons.delete,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              size: 24.0,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                               ],
                             ),
                           ),

@@ -2,8 +2,10 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -89,6 +91,16 @@ class _ScanQrWidgetState extends State<ScanQrWidget> {
                       child: Card(
                         clipBehavior: Clip.antiAliasWithSaveLayer,
                         color: FlutterFlowTheme.of(context).secondaryBackground,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: CachedNetworkImage(
+                            imageUrl:
+                                'https://interactive.co.id/product/images/assets/home/myorder.jpg',
+                            width: double.infinity,
+                            height: double.infinity,
+                            fit: BoxFit.fitHeight,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -97,7 +109,17 @@ class _ScanQrWidgetState extends State<ScanQrWidget> {
                         EdgeInsetsDirectional.fromSTEB(13.0, 13.0, 13.0, 13.0),
                     child: FFButtonWidget(
                       onPressed: () async {
+                        _model.tableRef =
+                            await FlutterBarcodeScanner.scanBarcode(
+                          '#C62828', // scanning line color
+                          'Cancel', // cancel button text
+                          true, // whether to show the flash icon
+                          ScanMode.QR,
+                        );
+
                         context.goNamed('categories');
+
+                        setState(() {});
                       },
                       text: 'Scan QR Code',
                       options: FFButtonOptions(
